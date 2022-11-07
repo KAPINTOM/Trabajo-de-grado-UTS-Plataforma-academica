@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{!-- <a class="navbar-brand" href="#">Navbar</a> --}}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/matricular_estudiante">Matricular estudiante</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/grupos">Ver grupos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/matricular_estudiante">Registrar acudiente</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="table_list">
+    <h2>Lista de estudiantes matriculados</h2>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Documento</th>
+                <th>Tipo de documento</th>
+                <th>Fecha de nacimiento</th>
+                <th>Acudiente</th>
+                <th>Sede</th>
+                <th>Jornada</th>
+                <th>Grado</th>
+                <th>Grupo</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th>Accion</th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each estudiante}}
+            <tr>
+                <td>{{nombres}}</td>
+                <td>{{apellidos}}</td>
+                <td>{{documento}}</td>
+                <td>{{tipo_documento}}</td>
+                <td>{{fecha_nacimiento}}</td>
+                <td>{{acudiente}}
+                    <abbr title="Ver acudiente">
+                        <a href="/acudiente/{{acudienteDoc}}"><i style='font-size:20px; color: gray;'
+                                class='fas'><span>&#8594;</span>&#xf06e;</i></a>
+                    </abbr>
+                </td>
+                <td>{{sede}}</td>
+                <td>{{jornada}}</td>
+                <td>{{grado}}</td>
+                <td>{{grupo}}</td>
+                <td>{{telefono}}</td>
+                <td>{{correo}}</td>
+                <td>
+                    <abbr title="Editar estudiante">
+                        <a href="/editar_matricula/{{documento}}" class="btn btn-secondary btn-block"><i
+                                style='font-size:24px' class='fas'>&#xf044;</i></a>
+                    </abbr>
+                </td>
+                <td>
+                    <abbr title="Editar estudiante">
+                        <a href="/calificaciones/{{documento}}" class="btn btn-secondary btn-block"><i
+                                style='font-size:24px' class='fas'>&#xf328;</i></a>
+                    </abbr>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

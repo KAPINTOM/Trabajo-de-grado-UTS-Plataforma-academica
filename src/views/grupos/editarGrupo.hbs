@@ -1,0 +1,95 @@
+<div class="container body_main body_form">
+    <h2>
+        Editar grupo
+    </h2>
+    <p>Nota: Asegurese de que los datos que registre sean logicos entre ellos</p>
+    <hr>
+    <form action="/actualizarGrupo/{{grupo.id}}" method="post">
+        <div class="row">
+            {{!-- Columna 1 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="nombres">Nombre:</label>
+                    <input type="text" value="{{grupo.nombre}}" class="form-control" name="nombre"
+                        placeholder="Nombre: Ej Octavo uno" autofocus>
+                </div>
+            </div>
+            <div class="col">
+                {{!-- Director de grupo --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Director de grupo:</label>
+                    <select class="form-control" name="director" id="director">
+                        <optgroup label="Director actual">
+                            <option value="{{directorActual.documento}}" selected>{{directorActual.nombres}}
+                                {{directorActual.apellidos}}</option>
+                        </optgroup>
+                        <optgroup label="Seleccione un director de grupo">
+                            {{#each director}}
+                            <option value="{{documento}}">{{nombres}} {{apellidos}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        {{!-- Fila 2 --}}
+        <div class="row">
+            <div class="col">
+                {{!-- Sede --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Sede:</label>
+                    <select class="form-control" name="sede" id="sede">
+                        <optgroup label="Sede actual">
+                            <option value="{{sedeActual.id}}" selected>{{sedeActual.nombre}}</option>
+                        </optgroup>
+                        <optgroup label="Seleccione una sede">
+                            {{#each sede}}
+                            <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                {{!-- Grado --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Grado:</label>
+                    <select class="form-control" name="grado" id="grado">
+                        <optgroup label="Grado actual">
+                            <option value="{{gradoActual.id}}" selected>{{gradoActual.grado}}</option>
+                        </optgroup>
+                        <optgroup label="Seleccione un grado">
+                            {{#each grado}}
+                            <option value="{{id}}">{{grado}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                {{!-- Jornada --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Jornada:</label>
+                    <select class="form-control" name="jornada" id="jornada">
+                        <optgroup label="Jornada actual">
+                            <option value="{{jornadaActual.id}}" selected>{{jornadaActual.jornada}}</option>
+                        </optgroup>
+                        <optgroup label="Seleccione una jornada">
+                            {{#each jornada}}
+                            <option value="{{id}}">{{jornada}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-success btn-block ">
+                Actualizar grupo
+            </button>
+            <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{!-- <a class="navbar-brand" href="#">Navbar</a> --}}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registrarDocente">Registrar docente</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/grupos">Ver grupos</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="docentes">
+    <br>
+    <h2>Lista de docentes por sede</h2>
+    <div class="row">
+        {{#each sedes}}
+        {{sedeActual nombre}}
+        <div class="col col_docentes">
+            <hr>
+            <h3>{{nombre}}</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Documento</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Titulo</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each ../docentes}}
+                    {{#if (ifDocenteSede sede)}}
+                    <tr>
+                        <td>{{nombres}}</td>
+                        <td>{{apellidos}}</td>
+                        <td>{{documento}}</td>
+                        <td>{{fecha_nacimiento}}</td>
+                        <td>{{telefono}}</td>
+                        <td>{{correo}}</td>
+                        <td>{{titulo}}</td>
+                        <td>
+                            <abbr title="Editar estudiante">
+                                <a href="/editarDocente/{{documento}}" class="btn btn-secondary btn-block"><i
+                                        style='font-size:24px' class='fas'>&#xf044;</i></a>
+                            </abbr>
+                        </td>
+                    </tr>
+                    {{/if}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/each}}
+    </div>
+
+</div>

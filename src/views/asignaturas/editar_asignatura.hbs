@@ -1,0 +1,70 @@
+<div class="container body_main body_form">
+    <h2>
+        Editar asignatura
+    </h2>
+    <hr>
+    <form action="/actualizar_asignatura/{{asignatura.id}}" method="post">
+        <div class="row">
+            {{!-- Columna 1 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="nombres">Nombre:</label>
+                    <input type="text" value="{{asignatura.nombre}}" class="form-control" name="nombre"
+                        placeholder="Nombres" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Horas semanales:</label>
+                    <input type="text" value="{{asignatura.horas_semanales}}" class="form-control"
+                        name="horas_semanales" placeholder="Escriba el numero de horas semanales" autofocus>
+                </div>
+
+                {{!-- Grado --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Grado:</label>
+                    <select class="form-control" name="grado" id="grado">
+                        <optgroup label="Grado actual">
+                            <option value="{{asignatura.grado}}" selected>{{grado_actual.grado}}</option>
+                        </optgroup>
+                        <optgroup label="Seleccione un grado">
+                            {{#each grado}}
+                            <option value="{{id}}">{{grado}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            {{!-- Columna 2 --}}
+            <div class="col">
+                {{!-- Docente --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Docente:</label>
+                    <select class="form-control" name="docente" id="docente">
+                        <optgroup label="Docente actual">
+                            <option value="{{asignatura.docente}}" selected>{{docente_actual.nombres}}
+                                {{docente_actual.apellidos}}</option>
+                        </optgroup>
+                        <optgroup label="Seleccione un docente">
+                            {{#each docente}}
+                            <option value="{{documento}}">{{nombres}} {{apellidos}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Horas Totales:</label>
+                    <input type="text" value="{{asignatura.horas_totales}}" class="form-control" name="horas_totales"
+                        placeholder="Escriba el numero de horas totales" autofocus>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-success btn-block">
+                Actualizar asignatura
+            </button>
+            <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
+        </div>
+    </form>
+</div>

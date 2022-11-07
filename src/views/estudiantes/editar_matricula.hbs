@@ -1,0 +1,145 @@
+<div class="container body_main body_form">
+    <h2>
+        Editar matricula
+    </h2>
+    <hr>
+    <form action="/actualizar_matricula/{{estudiante.documento}}" method="post">
+        <div class="row">
+
+            {{!-- Columna 1 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="nombres">Nombres:</label>
+                    <input type="text" value="{{estudiante.nombres}}" class="form-control" name="nombres"
+                        placeholder="Nombres" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" value="{{fnac}}" class="form-control" name="fecha_nacimiento"
+                        placeholder="Fecha de nacimiento" autofocus>
+                </div>
+                {{!-- Acudiente --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Acudiente:</label>
+                    <select class="form-control" name="acudiente" id="acudiente">
+                        <optgroup label="Actual">
+                            <option value="{{estudiante.acudiente}}" selected>{{acudiente_actual.parentesco}}:
+                                {{acudiente_actual.nombres}} {{acudiente_actual.apellidos}} - CC:
+                                {{acudiente_actual.documento}}</option>
+                        </optgroup>
+                        <optgroup label="Selecciona el acudiente">
+                            {{#each acudiente}}
+                            <option value="{{documento}}">{{parentesco}}: {{nombres}} {{apellidos}} - CC: {{documento}}
+                            </option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+
+                {{!-- Grupo --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Grupo:</label>
+                    <select class="form-control" name="grupo" id="grupo">
+                        <optgroup label="Actual">
+                            <option value="{{estudiante.grupo}}" selected>{{grupo_actual.nombre}}</option>
+                        </optgroup>
+                        <optgroup label="Selecciona el grupo">
+                            {{#each grupo}}
+                            <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo electronico:</label>
+                    <input type="email" value="{{estudiante.correo}}" class="form-control" name="correo"
+                        placeholder="Correo" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" value="{{estudiante.contrasena}}" class="form-control" name="contrasena"
+                        placeholder="Contraseña" autofocus>
+                </div>
+            </div>
+
+            {{!-- Columna 2 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" value="{{estudiante.apellidos}}" class="form-control" name="apellidos"
+                        placeholder="Apellidos" autofocus>
+                </div>
+                {{!-- Tipo de documento --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Tipo de documento:</label>
+                    <select class="form-control" name="tipo_documento" id="tipo_documento">
+                        <optgroup label="Actual">
+                            <option value="{{estudiante.tipo_documento}}" selected>{{estudiante.tipo_documento}}
+                            </option>
+                        </optgroup>
+                        <optgroup label="Selecciona el tipo de documento">
+                            <option value="Registro civil">Registro civil</option>
+                            <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                            <option value="Cedula de ciudadania">Cedula de ciudadania</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono:</label>
+                    <input type="text" value="{{estudiante.telefono}}" class="form-control" name="telefono"
+                        placeholder="Telefono" autofocus>
+                </div>
+                {{!-- Grado --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Grado:</label>
+                    <select class="form-control" name="grado" id="grado">
+                        <optgroup label="Actual">
+                            <option value="{{estudiante.grado}}" selected>{{grado_actual.grado}}</option>
+                        </optgroup>
+                        <optgroup label="Selecciona el grado">
+                            {{#each grado}}
+                            <option value="{{id}}">{{grado}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+                {{!-- Sede --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Sede:</label>
+                    <select class="form-control" name="sede" id="sede">
+                        <optgroup label="Actual">
+                            <option value="{{estudiante.sede}}" selected>{{sede_actual.nombre}}</option>
+                        </optgroup>
+                        <optgroup label="Selecciona la sede">
+                            {{#each sede}}
+                            <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+
+                {{!-- Jornada --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Jornada:</label>
+                    <select class="form-control" name="jornada" id="jornada">
+                        <optgroup label="Actual">
+                            <option value="{{estudiante.jornada}}" selected>{{jornada_actual.jornada}}</option>
+                        </optgroup>
+                        <optgroup label="Selecciona la jornada">
+                            {{#each jornada}}
+                            <option value="{{id}}">{{jornada}}</option>
+                            {{/each}}
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-success btn-block">
+                Matricular
+            </button>
+            <a href="/estudiantes" class="btn btn-secondary btn-block">Cancelar</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,100 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  padding: 10px 0px;
+}
+
+.title_main {
+  padding: 20px 10px;
+}
+
+.body_main {
+  padding: 0px 10px;
+}
+.body_main h3 {
+  margin: 20px 0px;
+}
+
+.form-check-inline {
+  padding: 7px 0px;
+}
+
+.table_list {
+  margin: 10px 10px;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tabla_notas {
+  margin: 10px 30px;
+  font-family: "Roboto", sans-serif;
+}
+.tabla_notas h4 {
+  margin: 20px 0px;
+}
+.tabla_notas p {
+  text-decoration: underline;
+}
+
+.button_form {
+  text-align: right;
+}
+.button_form button {
+  width: 200px;
+  float: right;
+  margin-top: 15px;
+}
+
+.button_form2 {
+  text-align: right;
+}
+.button_form2 button {
+  width: 200px;
+  margin-top: 5px;
+}
+
+/* Inputs de la vista de calificaciones */
+.i_tn {
+  width: 18%;
+}
+.i_note {
+  width: 60px;
+}
+
+.grupos {
+  margin: 0px 30px;
+}
+.docentes {
+  margin: 0px 30px;
+}
+
+.col_grupos {
+  margin: 5px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+}
+.col_grupos h3 {
+  margin: 10px 0px;
+}
+.col_grupos td {
+  height: 5px;
+}
+
+.col_docentes table {
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+.docentes h2 {
+  margin: -5px 0px;
+}
+
+.vistaAcudiente hr {
+  margin: 20px 0px;
+}
+.vistaAcudiente h4 {
+  margin: 5px 0px;
+}

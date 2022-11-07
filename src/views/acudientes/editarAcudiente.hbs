@@ -1,0 +1,50 @@
+<div class="container body_main body_form">
+    <h2>
+        Actualizar acudiente
+    </h2>
+    <hr>
+    <form action="/actualizarAcudiente/{{acudiente.documento}}" method="post">
+        <div class="row">
+            {{!-- Columna 1 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="nombres">Nombres:</label>
+                    <input type="text" value="{{acudiente.nombres}}" class="form-control" name="nombres"
+                        placeholder="Nombres" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo electronico:</label>
+                    <input type="email" value="{{acudiente.correo}}" class="form-control" name="correo"
+                        placeholder="Correo" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Telefono:</label>
+                    <input type="text" value="{{acudiente.telefono}}" class="form-control" name="telefono"
+                        placeholder="Telefono" autofocus>
+                </div>
+            </div>
+
+            {{!-- Columna 2 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" value="{{acudiente.apellidos}}" class="form-control" name="apellidos"
+                        placeholder="Apellidos" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Parentesco:</label>
+                    <input type="text" value="{{acudiente.parentesco}}" class="form-control" name="parentesco"
+                        placeholder="Parentesco" autofocus>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-success btn-block">
+                Actualizar acudiente
+            </button>
+            <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
+        </div>
+    </form>
+
+</div>

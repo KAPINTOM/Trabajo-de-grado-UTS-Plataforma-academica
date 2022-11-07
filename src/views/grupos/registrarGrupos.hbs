@@ -1,0 +1,73 @@
+<div class="container body_main body_form">
+    <h2>
+        Registrar grupo
+    </h2>
+    <p>Nota: Asegurese de que los datos que registre sean logicos entre ellos</p>
+    <hr>
+    <form action="/registrarGrupo" method="post">
+        <div class="row">
+            {{!-- Columna 1 --}}
+            <div class="col">
+                <div class="form-group">
+                    <label for="nombres">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre: Ej Octavo uno" autofocus>
+                </div>
+            </div>
+            <div class="col">
+                {{!-- Director de grupo --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Director de grupo:</label>
+                    <select class="form-control" name="director" id="director">
+                        {{#each director}}
+                        <option value="{{documento}}">{{nombres}} {{apellidos}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        {{!-- Fila 2 --}}
+        <div class="row">
+            <div class="col">
+                {{!-- Sede --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Sede:</label>
+                    <select class="form-control" name="sede" id="sede">
+                        {{#each sede}}
+                        <option value="{{id}}">{{nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                {{!-- Grado --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Grado:</label>
+                    <select class="form-control" name="grado" id="grado">
+                        {{#each grado}}
+                        <option value="{{id}}">{{grado}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                {{!-- Jornada --}}
+                <div class="form-group">
+                    <label for="tipo_documento">Jornada:</label>
+                    <select class="form-control" name="jornada" id="jornada">
+                        {{#each jornada}}
+                        <option value="{{id}}">{{jornada}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-success btn-block ">
+                Registrar grupo
+            </button>
+            <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
+        </div>
+    </form>
+</div>

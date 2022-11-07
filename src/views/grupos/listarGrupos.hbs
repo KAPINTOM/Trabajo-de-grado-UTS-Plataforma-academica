@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{!-- <a class="navbar-brand" href="#">Navbar</a> --}}
+    <div class="collapse navbar-collapse grupos" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registrarGrupo">Registrar grupos</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <br>
+    <div class="grupos">
+        <h2>Lista de grupos:</h2>
+        <div class="row">
+
+            {{#each sede}}
+            {{nivelSede nivel}}
+            {{sedeActual nombre}}
+            <div class="col col_grupos">
+
+                <h3>{{nombre}}</h3>
+                <hr>
+                {{!-- Sube 1 nivel --}}
+                {{#each ../grado}}
+                {{gradoActual grado}}
+                {{#if (ifNivelSede nivel)}}
+
+                <h4>{{grado}}</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Director</th>
+                            <th>Jornada</th>
+                            <th>Editar</th>
+                            <th>Estudiantes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{!-- Sube 2 niveles --}}
+                        {{#each ../../grupo}}
+                        {{#if (ifGrupoSedeGrado sede grado)}}
+                        <tr>
+                            <td>{{nombre}}</td>
+                            <td>{{director}}</td>
+                            <td>{{jornada}}</td>
+                            <td>
+                                <abbr title="Editar grupo">
+                                    <a href="/editarGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                            style='font-size:24px' class='fas'>&#xf044;</i></a>
+                                </abbr>
+                            </td>
+                            <td>
+                                <abbr title="Listar estudiantes">
+                                    <a href="/estudiantesGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                            style='font-size:24px' class='fas'>&#xf03a;</i></a>
+                                </abbr>
+                            </td>
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+
+                    </tbody>
+                </table>
+                {{/if}}
+                {{/each}}
+
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
