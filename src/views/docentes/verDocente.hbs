@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{!-- <a class="navbar-brand" href="#">Navbar</a> --}}
+    <div class="collapse navbar-collapse container" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registrar_asignatura">Registrar asignatura</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    <h2>Docente: {{docente.nombres}} {{docente.apellidos}}</h2>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Documento: {{docente.documento}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Sede: {{docente.sede}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Telefono: {{docente.telefono}}
+            </h5>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Correo: <a href="mailto:{{docente.correo}}">{{docente.correo}}</a>
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Titulo: {{docente.titulo}}
+            </h5>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <br>
+    <h2>Lista de asignaturas del docente</h2>
+    <hr>
+
+    <h3>{{grado}}</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Horas semanales</th>
+                <th>Horas totales</th>
+                <th>Grado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each asignaturas}}
+
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{horas_semanales}}</td>
+                <td>{{horas_totales}}</td>
+                <td>{{grado}}</td>
+                <td>
+                    <abbr title="Editar asignatura: {{nombre}}">
+                        <a href="/editar_asignatura/{{id}}" class="btn btn-secondary btn-block"><i
+                                style='font-size:24px' class='fas'>&#xf044;</i></a>
+                    </abbr>
+                </td>
+            </tr>
+
+            {{/each}}
+        </tbody>
+    </table>
+
+
+
+</div>

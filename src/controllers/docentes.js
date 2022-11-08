@@ -3,6 +3,8 @@ const router = express.Router();
 //Modelos
 const model_sede = require("../models/sede_modelo.js");
 const model_docente = require("../models/docente_modelo");
+const model_asignatura = require("../models/asignaturas_modelo");
+const model_grado = require("../models/grado_modelo");
 
 //Listar docentes
 router.get("/docentes", async (req, res) => {
@@ -39,6 +41,46 @@ router.get("/docentes", async (req, res) => {
 
   //console.log(estudiante);
   res.render("docentes/listaDocentes", { docentes, sedes });
+});
+
+//Ver docente
+router.get("/docente/:documento", async (req, res) => {
+  const { documento } = req.params;
+
+  let docente = await model_docente.list_docente("specific", documento);
+
+  //Ajustar formato de visualizacion de la fecha
+  let fecha_nacimiento_docente = docente.fecha_nacimiento;
+  let month = fecha_nacimiento_docente.getMonth() + 1;
+  let day = fecha_nacimiento_docente.getDate();
+  let year = fecha_nacimiento_docente.getFullYear();
+  if (month < 10) {
+    month = "0" + month;
+  }
+  if (day < 10) {
+    day = "0" + day;
+  }
+  let fnac = day + " - " + month + " - " + year;
+  docente.fecha_nacimiento = fnac;
+  console.log(docente.fecha_nacimiento);
+
+  //Ajustar sede
+  let sede_id = docente.sede;
+  const sede = await model_sede.list_sede("specific", sede_id);
+  docente.sede = sede.nombre;
+
+  //Cargar asignaturas del docente
+  let asignaturas = await model_asignatura.list_asign("docente", documento);
+
+  //Ajustar grado
+  for (let index = 0; index < asignaturas.length; index++) {
+    let aGrado = asignaturas[index].grado;
+    let grado = await model_grado.list_grado("specific", aGrado);
+    asignaturas[index].grado = grado.grado;
+  }
+
+  //console.log(estudiante);
+  res.render("docentes/verDocente", { docente, asignaturas });
 });
 
 //Registrar docente

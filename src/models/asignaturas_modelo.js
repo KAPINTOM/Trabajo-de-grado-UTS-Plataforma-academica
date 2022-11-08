@@ -23,6 +23,9 @@ function list_asign(action, id) {
     case "grado":
       asignaturas = listByGrado(id);
       return asignaturas;
+    case "docente":
+      asignaturas = listByDocente(id);
+      return asignaturas;
     default:
       break;
   }
@@ -49,6 +52,15 @@ async function listByGrado(grado) {
     grado
   );
   console.log("Asignaturas por grado:", grado);
+  console.log(asignaturas);
+  return asignaturas;
+}
+async function listByDocente(docenteId) {
+  const asignaturas = await pool.query(
+    "select * from asignaturas where docente =? order by nombre",
+    docenteId
+  );
+  console.log("Asignaturas por grado:", asignaturas);
   console.log(asignaturas);
   return asignaturas;
 }

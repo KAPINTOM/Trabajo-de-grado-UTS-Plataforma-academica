@@ -34,6 +34,7 @@
                         <th>Telefono</th>
                         <th>Correo</th>
                         <th>Titulo</th>
+                        <th>Ver</th>
                         <th>Editar</th>
                     </tr>
                 </thead>
@@ -49,7 +50,13 @@
                         <td>{{correo}}</td>
                         <td>{{titulo}}</td>
                         <td>
-                            <abbr title="Editar estudiante">
+                            <abbr title="Ver docente">
+                                <a href="/docente/{{documento}}" class="btn btn-secondary btn-block"><i
+                                        style='font-size:24px' class='fas'>&#xf06e;</i></a>
+                            </abbr>
+                        </td>
+                        <td>
+                            <abbr title="Editar docente">
                                 <a href="/editarDocente/{{documento}}" class="btn btn-secondary btn-block"><i
                                         style='font-size:24px' class='fas'>&#xf044;</i></a>
                             </abbr>
