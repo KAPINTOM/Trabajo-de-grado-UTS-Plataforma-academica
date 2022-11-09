@@ -135,11 +135,42 @@
             </div>
         </div>
         <hr>
-        <div class="form-group">
-            <button class="btn btn-success btn-block">
+        <div class="form-group menuButtons">
+            <button class="btn btn-primary btn-block">
                 Matricular
             </button>
+            <div class="row">
+                <div class="col">
+                    <a href="/estudiantes" onclick="retirar({{estudiante.documento}})"
+                        class="btn btn-warning btn-block">Retirar
+                        estudiante</a>
+                </div>
+                <div class="col">
+                    <a href="/estudiantes" onclick="eliminar({{estudiante.documento}})"
+                        class="btn btn-danger btn-block">Eliminar estudiante</a>
+                </div>
+            </div>
             <a href="/estudiantes" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
     </form>
+
+    <script>
+        function retirar(d) {
+            if (confirm("Esta seguro que desea retirar al estudiante") == true) {
+                let link = "/retirarEstudiante/" + d;
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", link);
+                xhr.send();
+            }
+        }
+
+        function eliminar(d) {
+            if (confirm("Esta seguro que desea elimiar al estudiante") == true) {
+                let link = "/eliminarEstudiante/" + d;
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", link);
+                xhr.send();
+            }
+        }
+    </script>
 </div>

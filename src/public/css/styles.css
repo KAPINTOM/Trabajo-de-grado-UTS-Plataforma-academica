@@ -98,3 +98,10 @@ h1 {
 .vistaAcudiente h4 {
   margin: 5px 0px;
 }
+
+.menuButtons a {
+  margin: 10px 0px;
+}
+.menuButtons button {
+  margin: 10px 0px;
+}

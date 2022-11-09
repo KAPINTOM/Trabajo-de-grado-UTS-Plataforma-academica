@@ -385,7 +385,51 @@ router.post("/actualizar_matricula/:documento", async (req, res) => {
   res.redirect("/estudiantes");
 });
 
+//Ocultar/retirar estudiante
+router.post("/retirarEstudiante/:documento", async (req, res) => {
+  const { documento } = req.params;
+
+  let estudiante = await model_estudiante.list_est("specific", documento);
+  let nombre = estudiante.nombres + " " + estudiante.apellidos;
+
+  //Actualiza el estudiante con el modelo usando el documento y un objeto con los datos
+  console.log("Worked yeah")
+
+  //Mensaje de confirmacion
+  await model_estudiante.ocultar(documento);
+  req.flash("success", "Estudiante retirado correctamente");
+
+  //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
+  res.redirect("/estudiantes");
+});
+
+//Mostrar estudiante
+router.post("/reestablecerEstudiante/:documento", async (req, res) => {
+  const { documento } = req.params;
+
+  //Actualiza el estudiante con el modelo usando el documento y un objeto con los datos
+  await model_estudiante.mostrar(documento);
+
+  //Mensaje de confirmacion
+  req.flash("success", "Estudiante reestablecido correctamente");
+
+  //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
+  res.redirect("/estudiantes");
+});
+
 //Eliminar estudiante
+router.post("/eliminarEstudiante/:documento", async (req, res) => {
+  const { documento } = req.params;
+
+  //Actualiza el estudiante con el modelo usando el documento y un objeto con los datos
+  await model_estudiante.eliminar(documento);
+
+  //Mensaje de confirmacion
+  req.flash("success", "Estudiante eliminado correctamente");
+
+  //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
+  res.redirect("/estudiantes");
+});
 
 //Exportar el modulo router para poder usarse desde
 module.exports = router;

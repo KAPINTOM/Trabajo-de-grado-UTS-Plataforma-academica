@@ -84,8 +84,26 @@ async function act_est(documento, estudiante) {
   ]);
 }
 
+//Ocultar
+async function ocultar(documento) {
+  //Actualiza un estudiante usando el documento de este
+  await pool.query("update estudiantes set visible = 0 where documento = ?", [
+    documento,
+  ]);
+}
+async function mostrar(documento) {
+  //Actualiza un estudiante usando el documento de este
+  await pool.query("update estudiantes set visible = 1 where documento = ?", [
+    documento,
+  ]);
+}
+
 //Eliminar
+async function eliminar(documento) {
+  //Actualiza un estudiante usando el documento de este
+  await pool.query("delete from estudiantes where documento = ?", [documento]);
+}
 
 //Exports
 module.exports = router;
-module.exports = { list_est, reg_est, act_est };
+module.exports = { list_est, reg_est, act_est, mostrar, ocultar, eliminar };
