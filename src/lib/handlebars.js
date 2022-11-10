@@ -118,7 +118,18 @@ helpers.gradoActual = (g) => {
   gradoActual = g;
 };
 helpers.ifGradoActual = (gA) => {
-  if (gA == gradoActual){
+  if (gA == gradoActual) {
+    return true;
+  }
+};
+
+helpers.ifVisible = (v) => {
+  if (v == 1) {
+    return true;
+  }
+};
+helpers.ifNotVisible = (v) => {
+  if (v == 0) {
     return true;
   }
 };

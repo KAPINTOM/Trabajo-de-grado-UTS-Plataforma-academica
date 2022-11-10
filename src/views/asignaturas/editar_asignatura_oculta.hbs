@@ -1,6 +1,7 @@
 <div class="container body_main body_form">
+    <br>
     <h2>
-        Editar asignatura
+        Editar asignatura oculta
     </h2>
     <hr>
     <form action="/actualizar_asignatura/{{asignatura.id}}" method="post">
@@ -61,26 +62,27 @@
         </div>
         <hr>
         <div class="form-group menuButtons">
-            <button class="btn btn-success btn-block">
+            <a id="mostrarA" class="btn btn-warning btn-block">Restablecer asignatura</a>
+            <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
+
+            <button id="actualizar" class="btn btn-success btn-block" style="visibility: hidden;">
                 Actualizar asignatura
             </button>
-
-            <a id="ocultarA" class="btn btn-warning btn-block">Ocultar asignatura</a>
-            <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
     </form>
 
-    <form action="/ocultarAsignatura/{{asignatura.id}}" method="post" style="visibility: hidden;">
-        <button id="ocultar" type="submit" style="visibility: hidden;"></button>
+    <form action="/mostrarAsignatura/{{asignatura.id}}" method="post" style="visibility: hidden;">
+        <button id="mostrar" type="submit" style="visibility: hidden;"></button>
     </form>
 
     <script>
-        document.querySelector('#ocultarA').addEventListener('click', () => {
+        document.querySelector('#mostrarA').addEventListener('click', () => {
             Confirm.open({
-                title: 'Retirar asignatura',
-                message: '¿Desea retirar la asignatura? esta accion puede deshacerse en cualquier momento',
+                title: 'Restablecer asignatura',
+                message: '¿Desea restablecer y actualizar la asignatura con los cambios realizados?',
                 onok: () => {
-                    document.getElementById('ocultar').click();
+                    document.getElementById('actualizar').click();
+                    //document.getElementById('mostrar').click();
                 }
             })
         });
@@ -92,7 +94,7 @@
                     {
                         title: "",
                         message: "",
-                        okText: "Retirar asignatura",
+                        okText: "Restablecer asignatura",
                         cancelText: "Cancelar",
                         onok: function () { },
                         oncancel: function () { },

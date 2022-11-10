@@ -6,23 +6,17 @@
                 <a class="nav-link " href="/">Inicio</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/estudiantes">Lista de estudiantes</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/matricular_estudiante">Matricular estudiante</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/grupos">Ver grupos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/matricular_estudiante">Registrar acudiente</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/estudiantesRetirados">Estudiantes retirados</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="table_list">
-    <h2>Lista de estudiantes matriculados</h2>
+    <h2>Lista de estudiantes retirados</h2>
     <hr>
     <table class="table table-bordered">
         <thead>
@@ -45,7 +39,7 @@
         </thead>
         <tbody>
             {{#each estudiante}}
-            {{#if (ifVisible visible)}}
+            {{#if (ifNotVisible visible)}}
             <tr>
                 <td>{{nombres}}</td>
                 <td>{{apellidos}}</td>
@@ -66,7 +60,7 @@
                 <td>{{correo}}</td>
                 <td>
                     <abbr title="Editar estudiante">
-                        <a href="/editar_matricula/{{documento}}" class="btn btn-secondary btn-block"><i
+                        <a href="/editar_matricula_retirado/{{documento}}" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>

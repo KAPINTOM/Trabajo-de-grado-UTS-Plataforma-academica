@@ -77,6 +77,72 @@ router.get("/estudiantes", async (req, res) => {
   //console.log(estudiante);
   res.render("estudiantes/lista_estudiantes", { estudiante });
 });
+//Listar estudiantes
+router.get("/estudiantesRetirados", async (req, res) => {
+  //let estudiante = await pool.query("select * from estudiantes");
+  //Carga lista de estudiantes usando el modelo
+  let estudiante = await model_estudiante.list_est("all", 0);
+
+  //Recorrer lista de objetos de estudiantes para realizar cambios en esta para su visualizacion
+  for (let index = 0; index < estudiante.length; index++) {
+    //
+    //Ajustar formato de visualizacion de la fecha
+    let fecha_nacimiento_estudiante = estudiante[index].fecha_nacimiento;
+    let month = fecha_nacimiento_estudiante.getMonth() + 1;
+    let day = fecha_nacimiento_estudiante.getDate();
+    let year = fecha_nacimiento_estudiante.getFullYear();
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+    let fnac = day + " - " + month + " - " + year;
+    estudiante[index].fecha_nacimiento = fnac;
+    console.log(estudiante[index].fecha_nacimiento);
+
+    //Ajustar acudiente
+    let documento_acudiente = estudiante[index].acudiente;
+
+    //Ajustar el documento del acudiente
+    estudiante[index].acudienteDoc = documento_acudiente;
+
+    //Obtener acudiente especifico de la base de datos usando el documento de este
+    const acudiente = await model_acudiente.list_acu(
+      "specific",
+      documento_acudiente
+    );
+    estudiante[index].acudiente =
+      acudiente.parentesco +
+      ": " +
+      acudiente.nombres +
+      " " +
+      acudiente.apellidos;
+
+    //Ajustar grupo
+    let grupo_id = estudiante[index].grupo;
+    const grupo = await model_grupo.list_grup("specific", grupo_id);
+    estudiante[index].grupo = grupo.nombre;
+
+    //Ajustar sede
+    let sede_id = estudiante[index].sede;
+    const sede = await model_sede.list_sede("specific", sede_id);
+    estudiante[index].sede = sede.nombre;
+
+    //Ajustar grado
+    let grado_id = estudiante[index].grado;
+    const grado = await model_grado.list_grado("specific", grado_id);
+    estudiante[index].grado = grado.grado;
+
+    //Ajustar jornada
+    let jornada_id = estudiante[index].jornada;
+    const jornada = await model_jornada.list_jornada("specific", jornada_id);
+    estudiante[index].jornada = jornada.jornada;
+  }
+
+  //console.log(estudiante);
+  res.render("estudiantes/lista_estudiantes_retirados", { estudiante });
+});
 
 //Listar estudiantes por grupo
 router.get("/estudiantesGrupo/:id", async (req, res) => {
@@ -277,10 +343,13 @@ router.post("/matricular_estudiante", async (req, res) => {
 //Editar matricula
 router.get("/editar_matricula/:documento", async (req, res) => {
   const { documento } = req.params;
+  console.log("documento", documento);
   //Llama a un estudiante especifico con el modelo usando un documento
   const estudiantes = await model_estudiante.list_est("specific", documento);
   //console.log(estudiantes.documento);
   // const estudiantes = await pool.query("select * from estudiantes where documento =?",[documento]);
+
+  console.log(estudiantes);
 
   //Obtener llaves foraneas del estudiante que se va a editar para poder optener los datos de las tablas a las cuales referencia con cada llave foranea
   let documento_acudiente = estudiantes.acudiente;
@@ -339,9 +408,79 @@ router.get("/editar_matricula/:documento", async (req, res) => {
     fnac,
   });
 });
+router.get("/editar_matricula_retirado/:documento", async (req, res) => {
+  const { documento } = req.params;
+  console.log("documento", documento);
+  //Llama a un estudiante especifico con el modelo usando un documento
+  const estudiantes = await model_estudiante.list_est("specific", documento);
+  //console.log(estudiantes.documento);
+  // const estudiantes = await pool.query("select * from estudiantes where documento =?",[documento]);
+
+  console.log(estudiantes);
+
+  //Obtener llaves foraneas del estudiante que se va a editar para poder optener los datos de las tablas a las cuales referencia con cada llave foranea
+  let documento_acudiente = estudiantes.acudiente;
+  let grado_id = estudiantes.grado;
+  let grupo_id = estudiantes.grupo;
+  let sede_id = estudiantes.sede;
+  let jornada_id = estudiantes.jornada;
+
+  //Conversion del formato de la fecha de nacimiento
+  let fecha_nacimiento_estudiante = estudiantes.fecha_nacimiento;
+  let month = fecha_nacimiento_estudiante.getMonth() + 1;
+  let day = fecha_nacimiento_estudiante.getDate();
+
+  //Agregar un 0 antes de el numero cuando este es menor de 10, esto para poder insertarlo en el input tipo date en el html de editar
+  if (month < 10) {
+    month = "0" + month;
+  }
+  if (day < 10) {
+    day = "0" + day;
+  }
+  let fnac =
+    fecha_nacimiento_estudiante.getFullYear() + "-" + month + "-" + day;
+  console.log(fecha_nacimiento_estudiante + ": " + fnac);
+
+  //Obtener la tabla correspondiente a cada llave foranea
+  const acudiente_actual = await model_acudiente.list_acu(
+    "specific",
+    documento_acudiente
+  );
+  const grado_actual = await model_grado.list_grado("specific", grado_id);
+  const grupo_actual = await model_grupo.list_grup("specific", grupo_id);
+  const sede_actual = await model_sede.list_sede("specific", sede_id);
+  const jornada_actual = await model_jornada.list_jornada(
+    "specific",
+    jornada_id
+  );
+  //Obtener todas las tablas necesarias
+  const acudiente = await model_acudiente.list_acu("all");
+  const grado = await model_grado.list_grado("all");
+  const grupo = await model_grupo.list_grup("all");
+  const jornada = await model_jornada.list_jornada("all");
+  const sede = await model_sede.list_sede("all");
+  //console.log(estudiantes[0]);
+  res.render("estudiantes/editar_matricula_retirado", {
+    estudiante: estudiantes,
+    acudiente_actual: acudiente_actual,
+    grado_actual: grado_actual,
+    grupo_actual: grupo_actual,
+    sede_actual: sede_actual,
+    jornada_actual: jornada_actual,
+    acudiente,
+    grado,
+    grupo,
+    jornada,
+    sede,
+    fnac,
+  });
+});
 router.post("/actualizar_matricula/:documento", async (req, res) => {
   const { documento } = req.params;
   console.log(documento);
+
+  let visible = 1;
+
   let {
     nombres,
     apellidos,
@@ -358,6 +497,7 @@ router.post("/actualizar_matricula/:documento", async (req, res) => {
   } = req.body;
   //Guarda en un objeto las constantes anteriores
   let newLink = {
+    visible,
     nombres,
     apellidos,
     tipo_documento,
@@ -393,7 +533,7 @@ router.post("/retirarEstudiante/:documento", async (req, res) => {
   let nombre = estudiante.nombres + " " + estudiante.apellidos;
 
   //Actualiza el estudiante con el modelo usando el documento y un objeto con los datos
-  console.log("Worked yeah")
+  console.log("Worked yeah");
 
   //Mensaje de confirmacion
   await model_estudiante.ocultar(documento);
@@ -403,19 +543,6 @@ router.post("/retirarEstudiante/:documento", async (req, res) => {
   res.redirect("/estudiantes");
 });
 
-//Mostrar estudiante
-router.post("/reestablecerEstudiante/:documento", async (req, res) => {
-  const { documento } = req.params;
-
-  //Actualiza el estudiante con el modelo usando el documento y un objeto con los datos
-  await model_estudiante.mostrar(documento);
-
-  //Mensaje de confirmacion
-  req.flash("success", "Estudiante reestablecido correctamente");
-
-  //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
-  res.redirect("/estudiantes");
-});
 
 //Eliminar estudiante
 router.post("/eliminarEstudiante/:documento", async (req, res) => {

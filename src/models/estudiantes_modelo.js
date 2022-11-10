@@ -100,7 +100,7 @@ async function mostrar(documento) {
 
 //Eliminar
 async function eliminar(documento) {
-  //Actualiza un estudiante usando el documento de este
+  await pool.query("delete from calificaciones where estudiante = ?", [documento]);
   await pool.query("delete from estudiantes where documento = ?", [documento]);
 }
 

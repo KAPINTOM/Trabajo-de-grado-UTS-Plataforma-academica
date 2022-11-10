@@ -8,6 +8,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/matricular_estudiante">Matricular estudiante</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/estudiantesRetirados">Lista de estudiantes retirados</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -35,6 +38,7 @@
         </thead>
         <tbody>
             {{#each estudiante}}
+            {{#if (ifVisible visible)}}
             <tr>
                 <td>{{nombres}}</td>
                 <td>{{apellidos}}</td>
@@ -64,6 +68,7 @@
                     </abbr>
                 </td>
             </tr>
+            {{/if}}
             {{/each}}
         </tbody>
     </table>

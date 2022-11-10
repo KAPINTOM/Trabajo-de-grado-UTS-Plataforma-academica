@@ -9,14 +9,14 @@
                 <a class="nav-link" href="/registrar_asignatura">Registrar asignatura</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/asignaturasOcultas">lista de asignaturas ocultas</a>
+                <a class="nav-link" href="/asignaturas">Lista de asignaturas</a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container">
     <br>
-    <h2>Lista de asignaturas</h2>
+    <h2>Lista de asignaturas ocultas</h2>
     <hr>
 
     {{#each grados}}
@@ -36,7 +36,7 @@
         </thead>
         <tbody>
             {{#each ../asignaturas}}
-            {{#if (ifVisible visible)}}
+            {{#if (ifNotVisible visible)}}
             {{#if (ifGradoActual grado)}}
             <tr>
                 <td>{{nombre}}</td>
@@ -45,7 +45,7 @@
                 <td>{{docente}}</td>
                 <td>
                     <abbr title="Editar asignatura: {{nombre}}">
-                        <a href="/editar_asignatura/{{id}}" class="btn btn-secondary btn-block"><i
+                        <a href="/editar_asignatura_oculta/{{id}}" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>

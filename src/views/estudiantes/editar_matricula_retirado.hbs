@@ -1,7 +1,7 @@
 <div class="container body_main body_form">
     <br>
     <h2>
-        Editar matricula
+        Editar matricula del estudiante retirado
     </h2>
     <hr>
     <form action="/actualizar_matricula/{{estudiante.documento}}" method="post">
@@ -137,12 +137,10 @@
         </div>
         <hr>
         <div class="form-group menuButtons">
-            <button id="matricular" class="btn btn-primary btn-block">
-                Matricular
-            </button>
+
             <div class="row">
                 <div class="col">
-                    <a id="retirarA" class="btn btn-warning btn-block">Retirar estudiante</a>         
+                    <a id="restablecerA" class="btn btn-info btn-block">Volver a matricular estudiante</a>
                 </div>
                 <div class="col">
                     <a id="eliminarA" class="btn btn-danger btn-block">Eliminar estudiante</a>
@@ -150,28 +148,17 @@
             </div>
             <a id="listar" href="/estudiantes" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
+
+        <button id="matricular" class="btn btn-primary btn-block" style="visibility: hidden;">
+            Matricular
+        </button>
     </form>
 
-    <form action="/retirarEstudiante/{{estudiante.documento}}" method="post" style="visibility: hidden;">
-        <button id="retirar" type="submit" style="visibility: hidden;"></button>
-    </form>
     <form action="/eliminarEstudiante/{{estudiante.documento}}" method="post" style="visibility: hidden;">
         <button id="eliminar" type="submit" style="visibility: hidden;"></button>
     </form>
 
     <script>
-        document.querySelector('#retirarA').addEventListener('click', () => {
-            Confirm.open({
-                title: 'Retirar estudiante',
-                message: '¿Desea retirar el estudiante? esta accion puede deshacerse en cualquier momento',
-                okText: "Retirar",
-                onok: () => {
-                    document.getElementById('retirar').click();
-                }
-
-            })
-        });
-
         document.querySelector('#eliminarA').addEventListener('click', () => {
             Confirm.open({
                 title: 'Eliminar estudiante',
@@ -184,6 +171,16 @@
             })
         });
 
+        document.querySelector('#restablecerA').addEventListener('click', () => {
+            Confirm.open({
+                title: 'Volver a matricular estudiante',
+                message: '¿Desea volver a matricular el estudiante y actualizar los datos de este?',
+                onok: () => {
+                    document.getElementById('matricular').click();
+                }
+            })
+        });
+
         const Confirm = {
             open(options) {
                 options = Object.assign(
@@ -191,7 +188,7 @@
                     {
                         title: "",
                         message: "",
-                        okText: "OK",
+                        okText: "Matricular",
                         cancelText: "Cancelar",
                         onok: function () { },
                         oncancel: function () { },

@@ -3,7 +3,6 @@ const router = express.Router();
 
 //Crea una conexion tipo pool con la base de datos usando el modulo pool el cual se exporto desde la clase "database.js"
 const pool = require("../database");
-const { list_grado } = require("./grado_modelo");
 
 //Modelo de las asignaturas para la comunicacion con la base de datos
 
@@ -77,8 +76,28 @@ async function act_asign(id, asignatura) {
   await pool.query("update asignaturas set ? where id = ?", [asignatura, id]);
 }
 
+//Ocultar
+async function ocultar(id) {
+  await pool.query("update asignaturas set visible = 0 where id = ?", [id]);
+}
+
+//Mostrar
+async function mostrar(id) {
+  await pool.query("update asignaturas set visible = 1 where id = ?", [id]);
+}
+
 //Eliminar
+async function eliminar(id) {
+  await pool.query("delete from asignaturas where id = ?", [id]);
+}
 
 //Exports
 module.exports = router;
-module.exports = { list_asign, reg_asign, act_asign };
+module.exports = {
+  list_asign,
+  reg_asign,
+  act_asign,
+  ocultar,
+  mostrar,
+  eliminar,
+};
