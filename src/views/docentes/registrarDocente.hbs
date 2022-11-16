@@ -9,24 +9,27 @@
             <div class="col">
                 <div class="form-group">
                     <label for="nombres">Nombres:</label>
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="documento">Documento:</label>
-                    <input type="text" class="form-control" name="documento" placeholder="Documento" autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                    <input type="date" class="form-control" name="fecha_nacimiento" placeholder="Fecha de nacimiento"
+                    <input id="nombresId" type="text" class="form-control" name="nombres" placeholder="Nombres"
                         autofocus>
                 </div>
                 <div class="form-group">
+                    <label for="documento">Documento:</label>
+                    <input id="documentoId" type="number" class="form-control" name="documento" placeholder="Documento"
+                        autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input id="fechaId" type="date" class="form-control" name="fecha_nacimiento"
+                        placeholder="Fecha de nacimiento" autofocus>
+                </div>
+                <div class="form-group">
                     <label for="correo">Correo electronico:</label>
-                    <input type="email" class="form-control" name="correo" placeholder="Correo" autofocus>
+                    <input id="correoId" type="email" class="form-control" name="correo" placeholder="Correo" autofocus>
                 </div>
                 <div class="form-group">
                     <label for="titulo">Titulo</label>
-                    <input type="text" class="form-control" name="titulo" placeholder="Titulo del docente" autofocus>
+                    <input id="tituloId" type="text" class="form-control" name="titulo" placeholder="Titulo del docente"
+                        autofocus>
                 </div>
             </div>
 
@@ -34,11 +37,13 @@
             <div class="col">
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" autofocus>
+                    <input id="apellidosId" type="text" class="form-control" name="apellidos" placeholder="Apellidos"
+                        autofocus>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Telefono:</label>
-                    <input type="text" class="form-control" name="telefono" placeholder="Telefono" autofocus>
+                    <input id="telefonoId" type="number" class="form-control" name="telefono" placeholder="Telefono"
+                        autofocus>
                 </div>
                 {{!-- Sede --}}
                 <div class="form-group">
@@ -51,7 +56,8 @@
                 </div>
                 <div class="form-group">
                     <label for="contraseña">Contraseña:</label>
-                    <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" autofocus>
+                    <input id="contrasenaId" type="password" class="form-control" name="contrasena"
+                        placeholder="Contraseña" autofocus>
                 </div>
                 {{!-- Administrador --}}
                 <div class="form-group">
@@ -65,11 +71,38 @@
         </div>
         <hr>
         <div class="form-group">
-            <button class="btn btn-success btn-block">
+            <a id="ingresar" class="btn btn-success btn-block" style="color: white;">Registrar</a>
+            <button id="I" class="btn btn-success btn-block" style="display: none;">
                 Matricular
             </button>
             <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
     </form>
-
 </div>
+
+<script>
+    document.querySelector('#ingresar').addEventListener('click', () => {
+        let nombres = document.getElementById("nombresId").value;
+        let documento = document.getElementById("documentoId").value;
+        let fecha = document.getElementById("fechaId").value;
+        let correo = document.getElementById("correoId").value;
+        let apellidos = document.getElementById("apellidosId").value;
+        let telefono = document.getElementById("telefonoId").value;
+        let contrasena = document.getElementById("contrasenaId").value;
+        let titulo = document.getElementById("tituloId").value;
+
+        if (nombres == ""
+            | documento == ""
+            | fecha == ""
+            | correo == ""
+            | apellidos == ""
+            | telefono == ""
+            | contrasena == ""
+            | titulo == "") {
+            alert("Llene todos los campos o verifique que estos sean correctos");
+        } else {
+
+            document.getElementById("I").click();
+        }
+    });
+</script>

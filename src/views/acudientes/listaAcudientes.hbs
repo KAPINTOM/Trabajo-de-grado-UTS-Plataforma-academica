@@ -32,7 +32,9 @@
                 <th>Telefono</th>
                 <th>Correo</th>
                 <th>Ver acudiente</th>
+                {{#if user.administrados}}
                 <th>Editar acudiente</th>
+                {{/if}}
             </tr>
         </thead>
         <tbody>
@@ -50,12 +52,14 @@
                                 class='fas'>&#xf06e;</i></a>
                     </abbr>
                 </td>
+                {{#if user.documento}}
                 <td>
                     <abbr title="Editar acudiente">
                         <a href="/actualizarAcudiente/{{documento}}" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>
+                {{/if}}
             </tr>
             {{/each}}
         </tbody>

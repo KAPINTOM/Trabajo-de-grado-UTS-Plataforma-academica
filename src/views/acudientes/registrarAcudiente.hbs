@@ -9,41 +9,85 @@
             <div class="col">
                 <div class="form-group">
                     <label for="nombres">Nombres:</label>
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" autofocus>
+                    <input id="nombresId" type="text" class="form-control" name="nombres" placeholder="Nombres"
+                        autofocus>
                 </div>
                 <div class="form-group">
                     <label for="documento">Documento:</label>
-                    <input type="text" class="form-control" name="documento" placeholder="Documento" autofocus>
+                    <input id="documentoId" type="number" class="form-control" name="documento" placeholder="Documento"
+                        autofocus>
                 </div>
-                <div class="form-group">
-                    <label for="correo">Correo electronico:</label>
-                    <input type="email" class="form-control" name="correo" placeholder="Correo" autofocus>
-                </div>
+
             </div>
 
             {{!-- Columna 2 --}}
             <div class="col">
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" autofocus>
+                    <input id="apellidosId" type="text" class="form-control" name="apellidos" placeholder="Apellidos"
+                        autofocus>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Parentesco:</label>
-                    <input type="text" class="form-control" name="parentesco" placeholder="Parentesco" autofocus>
+                    <input id="parentescoId" type="text" class="form-control" name="parentesco" placeholder="Parentesco"
+                        autofocus>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="correo">Correo electronico:</label>
+                    <input id="correoId" type="email" class="form-control" name="correo" placeholder="Correo" autofocus>
+                </div>
+            </div>
+            <div class="col">
                 <div class="form-group">
                     <label for="telefono">Telefono:</label>
-                    <input type="text" class="form-control" name="telefono" placeholder="Telefono" autofocus>
+                    <input id="telefonoId" type="number" class="form-control" name="telefono" placeholder="Telefono"
+                        autofocus>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="telefono">Contraseña:</label>
+                    <input id="contrasenaId" type="password" class="form-control" name="contrasena"
+                        placeholder="Contraseña" autofocus>
                 </div>
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <button class="btn btn-success btn-block">
+            <a id="ingresar" class="btn btn-success btn-block" style="color: white;">Registrar acudiente</a>
+            <button id="I" class="btn btn-success btn-block" style="display: none;">
                 Registrar acudiente
             </button>
             <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
     </form>
-
 </div>
+
+<script>
+    document.querySelector('#ingresar').addEventListener('click', () => {
+        let nombres = document.getElementById("nombresId").value;
+        let documento = document.getElementById("documentoId").value;
+        let parentesco = document.getElementById("parentescoId").value;
+        let correo = document.getElementById("correoId").value;
+        let apellidos = document.getElementById("apellidosId").value;
+        let telefono = document.getElementById("telefonoId").value;
+        let contrasena = document.getElementById("contrasenaId").value;
+
+        if (nombres == ""
+            | documento == ""
+            | parentesco == ""
+            | correo == ""
+            | apellidos == ""
+            | telefono == ""
+            | contrasena == "") {
+            alert("Llene todos los campos o verifique que estos sean correctos");
+        } else {
+            document.getElementById("I").click();
+        }
+    });
+
+</script>

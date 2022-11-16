@@ -10,7 +10,8 @@
             <div class="col">
                 <div class="form-group">
                     <label for="nombres">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Nombre: Ej Octavo uno" autofocus>
+                    <input id="nombreId" type="text" class="form-control" name="nombre"
+                        placeholder="Nombre: Ej Octavo uno" autofocus>
                 </div>
             </div>
             <div class="col">
@@ -64,10 +65,24 @@
         </div>
         <hr>
         <div class="form-group">
-            <button class="btn btn-success btn-block ">
+            <a id="ingresar" class="btn btn-success btn-block" style="color: white;">Registrar grupo</a>
+            <button id="I" class="btn btn-success btn-block" style="display: none;">
                 Registrar grupo
             </button>
             <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
     </form>
 </div>
+
+<script>
+    document.querySelector('#ingresar').addEventListener('click', () => {
+
+        let nombre = document.getElementById("nombreId").value;
+
+        if (nombre == "") {
+            alert("Llene todos los campos o verifique que estos sean correctos");
+        } else {
+            document.getElementById("I").click();
+        }
+    });
+</script>

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../database");
+const { isLoggedIn, isDocente, isAdmin } = require("../lib/auth");
 
 //Modelos
 const model_grado = require("../models/grado_modelo.js");
@@ -12,40 +12,88 @@ const model_jornada = require("../models/jornada_modelo");
 //Controlador de grupos
 
 //Listar grupos
-router.get("/grupos", async (req, res) => {
-  //let asignaturas = await pool.query("select * from asignaturas");
+router.get("/grupos", isLoggedIn, isDocente, async (req, res) => {
+  let user = req.user;
 
-  //Listar grupos usando el modelo
-  let grupos = await model_grupo.list_grup("all");
+  let doc = user.documento;
+  let admin = user.administrador;
+  let sedeFk = user.sede;
 
-  //Listar grados usando el modelo
-  let grados = await model_grado.list_grado("all");
+  console.log("usuario:", doc);
+
+  //Listar grados y grupos usando el modelo
+  let grados = await model_grado.listar("all");
+  let grupos = await model_grupo.listar("all");
+  let gruposSede = await model_grupo.listar("sede", sedeFk);
 
   //Listar sedes usando el modelo
-  let sedes = await model_sede.list_sede("all");
+  let sedes = await model_sede.listar("all");
+  let sedeDocente = await model_sede.listar("specific", sedeFk);
+
+  console.log("Sede docente", sedeDocente);
+  //Eliminar grados que no contengan grupos
+  for (let index = 0; index < grados.length; index++) {
+    let identificador = false;
+
+    for (let index2 = 0; index2 < grupos.length; index2++) {
+      let grado = grados[index].id;
+      let gradoGrupo = grupos[index2].grado;
+      console.log(grado, gradoGrupo);
+      if (grado == gradoGrupo) {
+        identificador = true;
+      }
+    }
+
+    if (identificador == false) {
+      delete grados[index];
+    }
+  }
 
   //Recorrer lista de objetos de grupos para realizar cambios en esta para su visualizacion
   for (let index = 0; index < grupos.length; index++) {
     //
     //Ajustar director
     let docente_id = grupos[index].director;
-    const director = await model_docente.list_docente("specific", docente_id);
+    const director = await model_docente.listar("specific", docente_id);
     grupos[index].director = director.nombres + " " + director.apellidos;
 
     //Ajustar jornada
     let jornadaId = grupos[index].jornada;
-    const jornada = await model_jornada.list_jornada("specific", jornadaId);
+    const jornada = await model_jornada.listar("specific", jornadaId);
     grupos[index].jornada = jornada.jornada;
 
     //Ajustar sede
     let sedeId = grupos[index].sede;
-    const sede = await model_sede.list_sede("specific", sedeId);
+    const sede = await model_sede.listar("specific", sedeId);
     grupos[index].sede = sede.nombre;
 
     //Ajustar grado
     let gradoId = grupos[index].grado;
-    const grado = await model_grado.list_grado("specific", gradoId);
+    const grado = await model_grado.listar("specific", gradoId);
     grupos[index].grado = grado.grado;
+  }
+
+  for (let index = 0; index < gruposSede.length; index++) {
+    //
+    //Ajustar director
+    let docente_id = gruposSede[index].director;
+    const director = await model_docente.listar("specific", docente_id);
+    gruposSede[index].director = director.nombres + " " + director.apellidos;
+
+    //Ajustar jornada
+    let jornadaId = gruposSede[index].jornada;
+    const jornada = await model_jornada.listar("specific", jornadaId);
+    gruposSede[index].jornada = jornada.jornada;
+
+    //Ajustar sede
+    let sedeId = gruposSede[index].sede;
+    const sede = await model_sede.listar("specific", sedeId);
+    gruposSede[index].sede = sede.nombre;
+
+    //Ajustar grado
+    let gradoId = gruposSede[index].grado;
+    const grado = await model_grado.listar("specific", gradoId);
+    gruposSede[index].grado = grado.grado;
   }
 
   //Ajustar nivel a las sedes
@@ -58,19 +106,31 @@ router.get("/grupos", async (req, res) => {
     }
   }
 
+  let sedeNombre = sedeDocente.nombre;
+  if ((sedeNombre == "Principal") | (sedeNombre == "principal")) {
+    sedeDocente.nivel = "secundaria";
+  } else {
+    sedeDocente.nivel = "primaria";
+  }
+
+  console.log(sedeDocente);
+
   res.render("grupos/listarGrupos", {
     sede: sedes,
     grupo: grupos,
     grado: grados,
+    admin,
+    sedeDocente,
+    gruposSede,
   });
 });
 
 //Registrar grupos
-router.get("/registrarGrupo", async (req, res) => {
-  const grado = await model_grado.list_grado("all");
-  const director = await model_docente.list_docente("all");
-  const sede = await model_sede.list_sede("all");
-  const jornada = await model_jornada.list_jornada("all");
+router.get("/registrarGrupo", isLoggedIn, isAdmin, async (req, res) => {
+  const grado = await model_grado.listar("all");
+  const director = await model_docente.listar("all");
+  const sede = await model_sede.listar("all");
+  const jornada = await model_jornada.listar("all");
 
   //Renderiza la lista y envia los datos de la consulta a la base de datos en un 2 objetos para que puedan ser usados en la lista
   res.render("grupos/registrarGrupos", {
@@ -80,7 +140,7 @@ router.get("/registrarGrupo", async (req, res) => {
     jornada,
   });
 });
-router.post("/registrarGrupo", async (req, res) => {
+router.post("/registrarGrupo", isLoggedIn, isAdmin, async (req, res) => {
   //Guardar datos recibidos desde el formulario usando una peticion post a "/add" en 3 constantes
   const { nombre, grado, sede, director, jornada } = req.body;
   //Guarda en un objeto las constantes anteriores
@@ -95,7 +155,7 @@ router.post("/registrarGrupo", async (req, res) => {
   console.log(newLink);
 
   //Registra la asignatura usando el modelo
-  await model_grupo.reg_grup(newLink);
+  await model_grupo.insertar(newLink);
 
   //Mensaje de confirmacion
   req.flash("success", "Grupo registrado correctamente");
@@ -105,12 +165,12 @@ router.post("/registrarGrupo", async (req, res) => {
 });
 
 //Actualizar grupos
-router.get("/editarGrupo/:id", async (req, res) => {
+router.get("/editarGrupo/:id", isLoggedIn, isAdmin, async (req, res) => {
   //Id del grupo a actualizar
   const { id } = req.params;
 
   //Cargar grupo
-  let grupo = await model_grupo.list_grup("specific", id);
+  let grupo = await model_grupo.listar("specific", id);
 
   //Llaves foraneas
   let gradoFk = grupo.grado;
@@ -119,19 +179,16 @@ router.get("/editarGrupo/:id", async (req, res) => {
   let jornadaFk = grupo.jornada;
 
   //Obtener elementos actuales usando la llave foranea
-  const gradoActual = await model_grado.list_grado("specific", gradoFk);
-  const directorActual = await model_docente.list_docente(
-    "specific",
-    directorFk
-  );
-  const sedeActual = await model_sede.list_sede("specific", sedeFk);
-  const jornadaActual = await model_jornada.list_jornada("specific", jornadaFk);
+  const gradoActual = await model_grado.listar("specific", gradoFk);
+  const directorActual = await model_docente.listar("specific", directorFk);
+  const sedeActual = await model_sede.listar("specific", sedeFk);
+  const jornadaActual = await model_jornada.listar("specific", jornadaFk);
 
   //Obtener elementos
-  const grado = await model_grado.list_grado("all");
-  const director = await model_docente.list_docente("all");
-  const sede = await model_sede.list_sede("all");
-  const jornada = await model_jornada.list_jornada("all");
+  const grado = await model_grado.listar("all");
+  const director = await model_docente.listar("all");
+  const sede = await model_sede.listar("all");
+  const jornada = await model_jornada.listar("all");
 
   //Renderizar vista
   res.render("grupos/editarGrupo", {
@@ -146,7 +203,7 @@ router.get("/editarGrupo/:id", async (req, res) => {
     jornada,
   });
 });
-router.post("/actualizarGrupo/:id", async (req, res) => {
+router.post("/actualizarGrupo/:id", isLoggedIn, isAdmin, async (req, res) => {
   const { id } = req.params;
   console.log(id);
 
@@ -161,7 +218,7 @@ router.post("/actualizarGrupo/:id", async (req, res) => {
   };
 
   //Actualizar asignatura usando el modelo
-  await model_grupo.act_grup(id, newLink);
+  await model_grupo.actualizar(id, newLink);
 
   //Mensaje de confirmacion
   req.flash("success", "Asignatura actualizada correctamente");
@@ -169,7 +226,5 @@ router.post("/actualizarGrupo/:id", async (req, res) => {
   //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
   res.redirect("/grupos");
 });
-
-//Eliminar grupos
 
 module.exports = router;

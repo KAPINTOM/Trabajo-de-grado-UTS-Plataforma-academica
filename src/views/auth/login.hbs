@@ -1,0 +1,43 @@
+<div class="container p-4">
+    <div class="row">
+
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Ingresar a la plataforma</h3>
+                </div>
+
+                <div class="card-body">
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                            <input id="documento" type="number" name="documento" placeholder="Documento de identidad"
+                                class="form-control" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input id="contrasena" type="password" name="contrasena" placeholder="Contraseña"
+                                class="form-control">
+                        </div>
+                        <a id="ingresar" class="btn btn-primary btn-block" style="color: white;">Ingresar</a>
+                        <button id="I" class="btn btn-primary btn-block" style="display: none;">
+                            Ingresar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{> message}}
+
+<script>
+    document.querySelector('#ingresar').addEventListener('click', () => {
+        let documento = document.getElementById("documento").value;
+        let contrasena = document.getElementById("contrasena").value;
+
+        if (documento == "" | contrasena == "") {
+            alert("Llene todos los campos");
+        } else {
+            document.getElementById("I").click();
+        }
+    });
+</script>

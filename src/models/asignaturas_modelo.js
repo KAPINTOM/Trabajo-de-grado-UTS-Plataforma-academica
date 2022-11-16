@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de las asignaturas para la comunicacion con la base de datos
 
 //Listar
-function list_asign(action, id) {
+function listar(action, id) {
   //documento: documento si es necesario un estudiante especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let asignaturas, asignatura;
@@ -65,13 +65,13 @@ async function listByDocente(docenteId) {
 }
 
 //Registrar
-async function reg_asign(asignatura) {
+async function insertar(asignatura) {
   //Registra un nuevo estudiante usando el objeto que se le paso
   await pool.query("insert into asignaturas set ?", [asignatura]);
 }
 
 //Actualizar
-async function act_asign(id, asignatura) {
+async function actualizar(id, asignatura) {
   //Actualiza un estudiante usando el documento de este
   await pool.query("update asignaturas set ? where id = ?", [asignatura, id]);
 }
@@ -94,9 +94,9 @@ async function eliminar(id) {
 //Exports
 module.exports = router;
 module.exports = {
-  list_asign,
-  reg_asign,
-  act_asign,
+  listar,
+  insertar,
+  actualizar,
   ocultar,
   mostrar,
   eliminar,

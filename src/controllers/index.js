@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.render("./main");
+const { isLoggedIn } = require("../lib/auth");
+
+router.get("/", isLoggedIn, (req, res) => {
+  res.redirect("/menu");
 });
 
 //Exporta el modulo router de express para que pueda ser usado desde index.js

@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de los grupos para la comunicacion con la base de datos
 
 //Listar
-function list_grup(action, id) {
+function listar(action, id) {
   //documento: documento si es necesario un acudiente especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let grupos, grupo;
@@ -18,6 +18,9 @@ function list_grup(action, id) {
     case "specific":
       grupo = list_specific(id);
       return grupo;
+    case "sede":
+      grupos = listBySede(id);
+      return grupos;
     default:
       break;
   }
@@ -32,15 +35,19 @@ async function list_specific(id) {
   const grupo = grupos[0];
   return grupo;
 }
+async function listBySede(id) {
+  const grupos = await pool.query("select * from grupos where sede =?", id);
+  return grupos;
+}
 
 //Registrar
-async function reg_grup(grupo) {
+async function insertar(grupo) {
   //Registra un nuevo grupo usando el objeto que se le paso
   await pool.query("insert into grupos set ?", [grupo]);
 }
 
 //Actualizar
-async function act_grup(id, grupo) {
+async function actualizar(id, grupo) {
   //Actualiza un acudiente usando el documento de este
   await pool.query("update grupos set ? where id = ?", [grupo, id]);
 }
@@ -49,4 +56,4 @@ async function act_grup(id, grupo) {
 
 //Exports
 module.exports = router;
-module.exports = { list_grup, reg_grup, act_grup };
+module.exports = { listar, insertar, actualizar };

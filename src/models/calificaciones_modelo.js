@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de las calificaciones para la comunicacion con la base de datos
 
 //Listar
-function list_cal(action, id) {
+function listar(action, id) {
   //documento: documento si es necesario un estudiante especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let calificaciones, calificacion;
@@ -57,13 +57,13 @@ async function list_by_student(id) {
 }
 
 //Registrar
-async function reg_cal(calificacion) {
+async function insertar(calificacion) {
   //Registra un nuevo estudiante usando el objeto que se le paso
   await pool.query("insert into calificaciones set ?", [calificacion]);
 }
 
 //Actualizar
-async function act_cal(id, calificacion) {
+async function actualizar(id, calificacion) {
   //Actualiza un estudiante usando el documento de este
   await pool.query("update calificaciones set ? where id = ?", [
     calificacion,
@@ -75,4 +75,4 @@ async function act_cal(id, calificacion) {
 
 //Exports
 module.exports = router;
-module.exports = { list_cal, reg_cal, act_cal };
+module.exports = { listar, insertar, actualizar };

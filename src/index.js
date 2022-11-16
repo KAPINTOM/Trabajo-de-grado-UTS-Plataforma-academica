@@ -5,10 +5,13 @@ const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session");
+const passport = require("passport");
+
 const { database } = require("./keys");
 
 //Initializations
 const app = express();
+require("./lib/passport");
 
 //Settings
 //Toma un puerto en el sistema si esta disponible, si no toma el 4000
@@ -53,6 +56,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 //Permite enviar mensajes a travez de distintas vistas
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Global variables
 //Toma la informacion del usuario (req), toma lo que el servidor responde (res)
@@ -61,13 +66,15 @@ app.use((req, res, next) => {
   //Guardar variable global para el uso de mensajes de flash
   app.locals.success = req.flash("success");
   app.locals.message = req.flash("message");
+  console.log("Que llega", req.user);
+  //Usuario de login
   app.locals.user = req.user;
   next();
 });
 
 //Routes
 app.use(require("./controllers"));
-app.use(require("./controllers/auths"));
+app.use(require("./controllers/authentication"));
 app.use(require("./controllers/index"));
 app.use(require("./controllers/estudiantes"));
 app.use(require("./controllers/asignaturas"));
@@ -75,6 +82,7 @@ app.use(require("./controllers/calificaciones"));
 app.use(require("./controllers/grupos"));
 app.use(require("./controllers/docentes"));
 app.use(require("./controllers/acudientes"));
+app.use(require("./controllers/perfiles"));
 
 //Public
 app.use(express.static(path.join(__dirname, "public")));

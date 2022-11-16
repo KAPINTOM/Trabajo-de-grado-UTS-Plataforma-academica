@@ -60,8 +60,10 @@
                 <th>Grupo</th>
                 <th>Telefono</th>
                 <th>Correo</th>
+                {{#if v}}
                 <th>Accion</th>
-                <th>Notas</th>
+                {{/if}}
+                <th>Calificaciones</th>
             </tr>
         </thead>
         <tbody>
@@ -78,14 +80,16 @@
                 <td>{{grupo}}</td>
                 <td>{{telefono}}</td>
                 <td>{{correo}}</td>
+                {{#if ../v}}
                 <td>
                     <abbr title="Editar estudiante">
                         <a href="/editar_matricula/{{documento}}" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>
-                <td>
-                    <abbr title="Editar estudiante">
+                {{/if}}
+                  <td>
+                    <abbr title="Calificaciones del estudiante">
                         <a href="/calificaciones/{{documento}}" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf328;</i></a>
                     </abbr>

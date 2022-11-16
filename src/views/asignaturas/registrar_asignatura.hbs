@@ -1,4 +1,5 @@
 <div class="container body_main body_form">
+    <br>
     <h2>
         Registrar asignatura
     </h2>
@@ -9,12 +10,12 @@
             <div class="col">
                 <div class="form-group">
                     <label for="nombres">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Nombres" autofocus>
+                    <input id="nombreId" type="text" class="form-control" name="nombre" placeholder="Nombres" autofocus>
                 </div>
 
                 <div class="form-group">
                     <label for="fecha_nacimiento">Horas semanales:</label>
-                    <input type="text" class="form-control" name="horas_semanales"
+                    <input id="horasSemanalesId" type="number" class="form-control" name="horas_semanales"
                         placeholder="Escriba el numero de horas semanales" autofocus>
                 </div>
 
@@ -42,17 +43,33 @@
                 </div>
                 <div class="form-group">
                     <label for="telefono">Horas Totales:</label>
-                    <input type="text" class="form-control" name="horas_totales"
+                    <input id="horasTotalesId" type="number" class="form-control" name="horas_totales"
                         placeholder="Escriba el numero de horas totales" autofocus>
                 </div>
             </div>
         </div>
         <hr>
         <div class="form-group">
-            <button class="btn btn-success btn-block">
+            <a id="ingresar" class="btn btn-success btn-block" style="color: white;">Matricular</a>
+            <button id="I" class="btn btn-success btn-block" style="display: none;">
                 Matricular
             </button>
             <a href="/" class="btn btn-secondary btn-block">Cancelar</a>
         </div>
     </form>
 </div>
+
+<script>
+    document.querySelector('#ingresar').addEventListener('click', () => {
+
+        let nombre = document.getElementById("nombreId").value;
+        let horasSemanales = document.getElementById("horasSemanalesId").value;
+        let horasTotales = document.getElementById("horasTotalesId").value;
+
+        if (nombre == "" | horasSemanales == "" | horasTotales == "") {
+            alert("Llene todos los campos o verifique que estos sean correctos");
+        } else {
+            document.getElementById("I").click();
+        }
+    });
+</script>

@@ -5,9 +5,11 @@
             <li class="nav-item">
                 <a class="nav-link " href="/">Inicio</a>
             </li>
+            {{#if (ifAdmin)}}
             <li class="nav-item">
                 <a class="nav-link" href="/registrarGrupo">Registrar grupos</a>
             </li>
+            {{/if}}
         </ul>
     </div>
 </nav>
@@ -16,7 +18,9 @@
     <div class="grupos">
         <h2>Lista de grupos:</h2>
         <div class="row">
-
+            {{guardarAdmin admin}}
+            {{#if (ifAdmin)}}
+            {{!-- Codigo para los administradores --}}
             {{#each sede}}
             {{nivelSede nivel}}
             {{sedeActual nombre}}
@@ -28,6 +32,10 @@
                 {{#each ../grado}}
                 {{gradoActual grado}}
                 {{#if (ifNivelSede nivel)}}
+
+                {{!-- Sube 2 niveles --}}
+                {{#each ../../grupo}}
+                {{#if (ifGrupoSedeGrado sede grado)}}
 
                 <h4>{{grado}}</h4>
                 <table class="table table-bordered">
@@ -41,9 +49,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{!-- Sube 2 niveles --}}
-                        {{#each ../../grupo}}
-                        {{#if (ifGrupoSedeGrado sede grado)}}
                         <tr>
                             <td>{{nombre}}</td>
                             <td>{{director}}</td>
@@ -61,16 +66,56 @@
                                 </abbr>
                             </td>
                         </tr>
-                        {{/if}}
-                        {{/each}}
-
                     </tbody>
                 </table>
                 {{/if}}
                 {{/each}}
 
+                {{/if}}
+                {{/each}}
             </div>
             {{/each}}
+            {{!-- Codigo para los docentes --}}
+            {{else}}
+            <div class="col col_grupos_doc">
+                <br>
+                <h2>Sede: {{sedeDocente.nombre}}</h2>
+                <hr>
+                {{nivelSede sedeDocente.nivel}}
+                {{#each grado}}
+                {{gradoActual grado}}
+
+                {{#each ../gruposSede}}
+                {{#if (ifGrupoGrado grado)}}
+                <h4>{{grado}}</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Director</th>
+                            <th>Jornada</th>
+                            <th>Planilla de calificaciones del grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{nombre}}</td>
+                            <td>{{director}}</td>
+                            <td>{{jornada}}</td>
+                            <td>
+                                <abbr title="Planilla de calificaciones del grupo">
+                                    <a href="/calificacionesPorGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                            style='font-size:24px' class='fas'>&#xf03a;</i></a>
+                                </abbr>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {{/if}}
+                {{/each}}
+                {{/each}}
+            </div>
+            {{/if}}
         </div>
     </div>
 </div>

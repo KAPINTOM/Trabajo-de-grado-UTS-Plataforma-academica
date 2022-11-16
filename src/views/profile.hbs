@@ -1,0 +1,116 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{!-- <a class="navbar-brand" href="#">Navbar</a> --}}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/logout">Cerrar seccion</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="card-body">
+        <h3>Welcome {{user.nombres}} {{user.apellidos}}</h3>
+    </div>
+
+    {{#if docente}}
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Documento: {{user.documento}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Sede: {{user.sede}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Telefono: {{user.telefono}}
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Correo: <a href="mailto:{{user.correo}}">{{user.correo}}</a>
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Titulo: {{user.titulo}}
+            </h5>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <a href="/actualizarContrasena" class="btn btn-primary btn-block" style="color: white;">Actualizar contraseña</a>
+    {{/if}}
+
+    {{#if acudiente}}
+    <div class="row">
+        <div class="col">
+            <h4>
+                Documento: {{user.documento}}
+            </h4>
+        </div>
+        <div class="col">
+            <h4>
+                Telefono: {{user.telefono}}
+            </h4>
+        </div>
+        <div class="col">
+            <h4>
+                Parentesco: {{user.parentesco}}
+            </h4>
+        </div>
+        <div class="col">
+            <h4>
+                Correo: <a href="mailto:{{user.correo}}">{{user.correo}}</a>
+            </h4>
+        </div>
+    </div>
+    <a href="/actualizarContrasena" class="btn btn-primary btn-block" style="color: white;">Actualizar contraseña</a>
+
+    {{/if}}
+
+    {{#if estudiante}}
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> {{user.tipo_documento}}: {{user.documento}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Sede: {{user.sede}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Jornada: {{user.jornada}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Grado: {{user.grado}}
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Grupo: {{user.grupo}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Telefono: {{user.telefono}}
+            </h5>
+        </div>
+        <div class="col">
+            <h5><span class="fas">&#xf30b;</span> Correo: <a href="mailto:{{user.correo}}">{{user.correo}}</a>
+            </h5>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <a href="/actualizarContrasena" class="btn btn-primary btn-block" style="color: white;">Actualizar contraseña</a>
+
+    {{/if}}
+</div>

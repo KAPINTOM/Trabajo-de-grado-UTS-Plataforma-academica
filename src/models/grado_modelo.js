@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de las sedes para la comunicacion con la base de datos
 
 //Listar
-function list_grado(action, id) {
+function listar(action, id) {
   //documento: documento si es necesario un acudiente especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let grados, grado;
@@ -34,13 +34,13 @@ async function list_specific(id) {
 }
 
 //Registrar
-async function reg_grado(grado) {
+async function insertar(grado) {
   //Registra un nuevo grado usando el objeto que se le paso
   await pool.query("insert into grados set ?", [grado]);
 }
 
 //Actualizar
-async function act_grado(id, grado) {
+async function actualizar(id, grado) {
   //Actualiza un grado usando el documento de este
   await pool.query("update grados set ? where id = ?", [grado, id]);
 }
@@ -49,4 +49,4 @@ async function act_grado(id, grado) {
 
 //Exports
 module.exports = router;
-module.exports = { list_grado, reg_grado, act_grado };
+module.exports = { listar, insertar, actualizar };

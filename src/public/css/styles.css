@@ -37,6 +37,20 @@ h1 {
   text-decoration: underline;
 }
 
+.tabla_notas_grupo {
+  margin: 0px 30px;
+  font-family: "Roboto", sans-serif;
+}
+.tabla_notas_grupo table {
+  margin: 0px;
+}
+.tabla_notas_grupo h4 {
+  margin: 0px 0px;
+}
+.tabla_notas_grupo p {
+  text-decoration: underline;
+}
+
 .button_form {
   text-align: right;
 }
@@ -80,6 +94,22 @@ h1 {
 }
 .col_grupos td {
   height: 5px;
+}
+
+.col_grupos_doc {
+  margin: 5px 15%;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+}
+.col_grupos_doc h3 {
+  margin: 10px 0px;
+}
+.col_grupos_doc td {
+  height: 5px;
+}
+.col_grupos_doc a {
+  width: 100px;
 }
 
 .col_docentes table {

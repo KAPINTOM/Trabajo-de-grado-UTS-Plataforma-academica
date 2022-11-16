@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de los docentes para la comunicacion con la base de datos
 
 //Listar
-function list_docente(action, documento) {
+function listar(action, documento) {
   //documento: documento si es necesario un acudiente especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let docentes, docente;
@@ -39,13 +39,13 @@ async function list_specific(documento) {
 }
 
 //Registrar
-async function reg_docente(docente) {
+async function insertar(docente) {
   //Registra un docente usando el objeto que se le paso
   await pool.query("insert into docentes set ?", [docente]);
 }
 
 //Actualizar
-async function act_docente(documento, docente) {
+async function actualizar(documento, docente) {
   //Actualiza un docente usando el documento de este
   await pool.query("update docentes set ? where documento = ?", [
     docente,
@@ -57,4 +57,4 @@ async function act_docente(documento, docente) {
 
 //Exports
 module.exports = router;
-module.exports = { list_docente, reg_docente, act_docente };
+module.exports = { insertar, actualizar, listar };

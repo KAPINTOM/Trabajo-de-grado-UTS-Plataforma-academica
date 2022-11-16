@@ -1,6 +1,9 @@
 //Importa el metodo format de timeago, el cual permite transformar fechas a un texto de tiempo transcurrido desde esa fecha, ejemplo: "hace 5 segundos"
 const { format } = require("timeago.js");
 
+const express = require("express");
+const app = express();
+
 //Objeto que se podra usar desde las vistas
 const helpers = {};
 
@@ -33,6 +36,16 @@ helpers.ifasignatura = (as) => {
     return true;
   }
   //console.log("testing yes");
+};
+
+let documentoEstudianteActual = null;
+helpers.estudiante = (documento) => {
+  documentoEstudianteActual = documento;
+};
+helpers.ifEstudiante = (docEsCal) => {
+  if (docEsCal == documentoEstudianteActual) {
+    return true;
+  }
 };
 
 //Asigna un identificador unico a cada casilla de datos para poder identificarlo al momento de enviar los datos y guardarlos en la base de datos usando el modelo
@@ -76,6 +89,11 @@ helpers.ifGrupoSedeGrado = (sedeGrupo, gradoGrupo) => {
     if (gradoGrupo == gradoActual) {
       return true;
     }
+  }
+};
+helpers.ifGrupoGrado = (gradoGrupo) => {
+  if (gradoGrupo == gradoActual) {
+    return true;
   }
 };
 
@@ -132,6 +150,50 @@ helpers.ifNotVisible = (v) => {
   if (v == 0) {
     return true;
   }
+};
+
+userG = (req, res, next) => {
+  return req.user;
+};
+
+let admin = null;
+
+helpers.guardarAdmin = (A) => {
+  admin = A;
+};
+
+helpers.ifAdmin = () => {
+  if (admin == 1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+let thV = false;
+helpers.theadVisible = () => {
+  thV = true;
+};
+
+helpers.iFtheadVisible = () => {
+  return thV;
+};
+
+helpers.theadNotVisible = () => {
+  thV = false;
+};
+
+let es = false;
+helpers.esV = () => {
+  es = true;
+};
+
+helpers.ifEsV = () => {
+  return es;
+};
+
+helpers.esNV = () => {
+  es = false;
 };
 
 module.exports = helpers;

@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de las sedes para la comunicacion con la base de datos
 
 //Listar
-function list_sede(action, id) {
+function listar(action, id) {
   //documento: documento si es necesario un acudiente especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let sedes, sede;
@@ -34,13 +34,13 @@ async function list_specific(id) {
 }
 
 //Registrar
-async function reg_sede(sede) {
+async function insertar(sede) {
   //Registra un nuevo grupo usando el objeto que se le paso
   await pool.query("insert into sedes set ?", [sede]);
 }
 
 //Actualizar
-async function act_sede(id, sede) {
+async function actualizar(id, sede) {
   //Actualiza un acudiente usando el documento de este
   await pool.query("update sedes set ? where id = ?", [sede, id]);
 }
@@ -49,4 +49,4 @@ async function act_sede(id, sede) {
 
 //Exports
 module.exports = router;
-module.exports = { list_sede, reg_sede, act_sede };
+module.exports = { listar, insertar, actualizar };

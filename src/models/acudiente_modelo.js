@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de las asignaturas para la comunicacion con la base de datos
 
 //Listar
-function list_acu(action, documento) {
+function listar(action, documento) {
   //documento: documento si es necesario un acudiente especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let acudientes, acudiente;
@@ -39,13 +39,13 @@ async function list_specific(documento) {
 }
 
 //Registrar
-async function reg_acu(acudiente) {
+async function insertar(acudiente) {
   //Registra un nuevo acudiente usando el objeto que se le paso
   await pool.query("insert into acudiente set ?", [acudiente]);
 }
 
 //Actualizar
-async function act_acu(documento, acudiente) {
+async function actualizar(documento, acudiente) {
   //Actualiza un acudiente usando el documento de este
   await pool.query("update acudiente set ? where documento = ?", [
     acudiente,
@@ -57,4 +57,4 @@ async function act_acu(documento, acudiente) {
 
 //Exports
 module.exports = router;
-module.exports = { list_acu, reg_acu, act_acu };
+module.exports = { listar, insertar, actualizar };

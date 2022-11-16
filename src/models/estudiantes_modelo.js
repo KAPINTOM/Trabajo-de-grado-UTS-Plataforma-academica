@@ -7,7 +7,7 @@ const pool = require("../database");
 //Modelo de los estudiantes para la comunicacion con la base de datos
 
 //Listar
-function list_est(action, documento) {
+function listar(action, documento) {
   //documento: documento si es necesario un estudiante especifico
   //action: accion a realizar, si cargar uno especifico, o todos, es modificable
   let estudiantes, estudiante;
@@ -70,13 +70,13 @@ async function listByAcudiente(acudienteFk) {
 }
 
 //Registrar
-async function reg_est(estudiante) {
+async function insertar(estudiante) {
   //Registra un nuevo estudiante usando el objeto que se le paso
   await pool.query("insert into estudiantes set ?", [estudiante]);
 }
 
 //Actualizar
-async function act_est(documento, estudiante) {
+async function actualizar(documento, estudiante) {
   //Actualiza un estudiante usando el documento de este
   await pool.query("update estudiantes set ? where documento = ?", [
     estudiante,
@@ -100,10 +100,12 @@ async function mostrar(documento) {
 
 //Eliminar
 async function eliminar(documento) {
-  await pool.query("delete from calificaciones where estudiante = ?", [documento]);
+  await pool.query("delete from calificaciones where estudiante = ?", [
+    documento,
+  ]);
   await pool.query("delete from estudiantes where documento = ?", [documento]);
 }
 
 //Exports
 module.exports = router;
-module.exports = { list_est, reg_est, act_est, mostrar, ocultar, eliminar };
+module.exports = { listar, insertar, actualizar, mostrar, ocultar, eliminar };

@@ -5,81 +5,55 @@
             <li class="nav-item">
                 <a class="nav-link " href="/">Inicio</a>
             </li>
-            {{#if user.administrador}}
             <li class="nav-item">
                 <a class="nav-link" href="/estudiantes">Lista de estudiantes</a>
             </li>
-            {{/if}}
         </ul>
     </div>
 </nav>
-
-<div class="tabla_notas">
-    <h2>Calificaciones estudiante: {{estudiante_actual.nombres}} {{estudiante_actual.apellidos}}</h2>
-    <hr>
-    <div class="row">
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> {{estudiante_actual.tipo_documento}}: {{estudiante_actual.documento}}
-            </h5>
-        </div>
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> Sede: {{estudiante_actual.sedeA}}
-            </h5>
-        </div>
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> Jornada: {{estudiante_actual.jornadaA}}
-            </h5>
-        </div>
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> Grado: {{estudiante_actual.gradoA}}
-            </h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> Grupo: {{estudiante_actual.grupoA}}
-            </h5>
-        </div>
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> Telefono: {{estudiante_actual.telefono}}
-            </h5>
-        </div>
-        <div class="col">
-            <h5><span class="fas">&#xf30b;</span> Correo: <a
-                    href="mailto:{{estudiante_actual.correo}}">{{estudiante_actual.correo}}</a>
-            </h5>
-        </div>
-        <div class="col">
-
-        </div>
-    </div>
-    <hr>
+<div class="tabla_notas_grupo">
+    <h2>Planilla de calificaciones por grupo</h2>
     <p>Nota: al registrar las calificaciones en decimales usar punto en lugar de coma, ejemplo: 3.1</p>
     <p>Nota: no dejar casillas en blanco entre otras con notas, ej :
-        <input type="text" class="i_note" value="3.5" disabled> <input type="text" class="i_note" disabled> <input
-            type="text" class="i_note" value="4" disabled>
+        <input type="text" class="i_note" value="3.5"> <input type="text" class="i_note"> <input type="text"
+            class="i_note" value="4">
         . Sino asi
-        <input type="text" class="i_note" value="3.5" disabled> <input type="text" class="i_note" value="4" disabled>
-        <input type="text" class="i_note" disabled>
+        <input type="text" class="i_note" value="3.5"> <input type="text" class="i_note" value="4"> <input type="text"
+            class="i_note">
     </p>
-
-    {{!-- Repetir por cada asignatura del estudiante --}}
+    <br>
+    <h2>Grupo: {{grupoActual.nombre}} - Sede: {{sedeActual.nombre}}</h2>
+    {{#each estudiante}}
     <form action="/actualizar_calificaciones/{{documento}}" method="post">
-
-        {{#if habilitar}}
-        {{else}}
-        <div class="button_form">
-            <button class="btn btn-primary">
-                Guardar
-            </button>
-        </div>
-        {{/if}}
-
-        {{#each asignatura}}
-        <hr>
-        <h4>Asignatura: {{this}}{{asignatura this}}</h4>
+        {{esV}}
+        {{#if visible}}
+        {{estudiante documento}}
+        {{#each ../asignatura}}
+        {{asignatura this}}
 
         <table class="table table-bordered">
+            {{theadVisible}}
+            {{#each ../../cal}}
+            {{#if (ifEstudiante estudiante)}}
+            {{#if (ifasignatura as)}}
+
+
+            {{#if (iFtheadVisible)}}
+
+
+            {{#if (ifEsV)}}
+            <div class="button_form">
+                <button class="btn btn-primary">
+                    Guardar
+                </button>
+            </div>
+            <hr>
+            <h3>Estudiante: {{../../nombres}} {{../../apellidos}} - {{../../tipo_documento}}: {{../../documento}}</h3>
+            {{esNV}}
+            {{/if}}
+            <hr>
+            <h4>Asignatura: {{../this}}</h4>
+            <br>
             <thead>
                 <tr>
                     <th>Periodo</th>
@@ -91,69 +65,65 @@
                     <th>Desempeño periodo</th>
                 </tr>
             </thead>
+            {{theadNotVisible}}
+            {{/if}}
             <tbody>
                 {{!-- Por periodos de esa asignatura --}}
                 {{!-- "../" representa salir del loop de each asignatura anterior --}}
-                {{#each ../cal}}
-                {{#if (ifasignatura as)}}
                 <tr>
                     <td>{{periodo}}</td>
                     <td>
                         {{!-- cn: Cognitiva --}}
                         {{!-- cnp: Cognitiva posicion de 5 casillas --}}
                         <input type="text" class="i_tn" value="{{cn1}}" name="{{id_asign id ../this periodo " cnp1"
-                            cn1}}" {{../../habilitar}}>
+                            cn1}}">
                         <input type="text" class="i_tn" value="{{cn2}}" name="{{id_asign id ../this periodo " cnp2"
-                            cn2}}" {{../../habilitar}}>
+                            cn2}}">
                         <input type="text" class="i_tn" value="{{cn3}}" name="{{id_asign id ../this periodo " cnp3"
-                            cn3}}" {{../../habilitar}}>
+                            cn3}}">
                         <input type="text" class="i_tn" value="{{cn4}}" name="{{id_asign id ../this periodo " cnp4"
-                            cn4}}" {{../../habilitar}}>
+                            cn4}}">
                         <input type="text" class="i_tn" value="{{cn5}}" name="{{id_asign id ../this periodo " cnp5"
-                            cn5}}" {{../../habilitar}}>
+                            cn5}}">
                     </td>
                     <td>{{cognitiva}}</td>
                     <td>
                         {{!-- pn: Procedimental --}}
                         {{!-- pnp: Procedimental posicion de 5 casillas --}}
                         <input type="text" class="i_tn" value="{{pn1}}" name="{{id_asign id ../this periodo " pnp1"
-                            pn1}}" {{../../habilitar}}>
+                            pn1}}">
                         <input type="text" class="i_tn" value="{{pn2}}" name="{{id_asign id ../this periodo " pnp2"
-                            pn2}}" {{../../habilitar}}>
+                            pn2}}">
                         <input type="text" class="i_tn" value="{{pn3}}" name="{{id_asign id ../this periodo " pnp3"
-                            pn3}}" {{../../habilitar}}>
+                            pn3}}">
                         <input type="text" class="i_tn" value="{{pn4}}" name="{{id_asign id ../this periodo " pnp4"
-                            pn4}}" {{../../habilitar}}>
+                            pn4}}">
                         <input type="text" class="i_tn" value="{{pn5}}" name="{{id_asign id ../this periodo " pnp5"
-                            pn5}}" {{../../habilitar}}>
+                            pn5}}">
                     </td>
                     <td>{{procedimental}}</td>
                     <td>
                         {{!-- cn: Cognitiva --}}
                         {{!-- cnp: Cognitiva posicion de 5 casillas --}}
                         <input type="text" value="{{actitudinal}}" name="{{id_asign id ../this periodo " actitudinal"
-                            actitudinal}}" {{../../habilitar}}>
+                            actitudinal}}">
                     </td>
                     <td>
                         {{final}}
                         <input type="text" value="{{final}}" name="{{id_asign id ../this periodo " final" final}}"
-                            style="display: none;" {{../../habilitar}}>
+                            style="display: none;">
                     </td>
                 </tr>
-                {{/if}}
-                {{/each}}
-                {{!-- /por periodo --}}
             </tbody>
+
+            {{/if}}
+            {{/if}}
+            {{/each}}
         </table>
+
         {{/each}}
-        {{!-- /Repetir por cada asignatura del estudiante --}}
-        {{#if habilitar}}
-        {{else}}
-        <div class="button_form2">
-            <button class="btn btn-primary">
-                Guardar
-            </button>
-        </div>
         {{/if}}
     </form>
+    {{/each}}
+    <br>
 </div>
