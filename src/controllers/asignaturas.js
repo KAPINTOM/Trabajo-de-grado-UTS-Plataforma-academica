@@ -176,60 +176,70 @@ router.get("/editar_asignatura/:id", isLoggedIn, isAdmin, async (req, res) => {
     docente,
   });
 });
-router.get("/editar_asignatura_oculta/:id", isLoggedIn, isAdmin, async (req, res) => {
-  const { id } = req.params;
-  //const asignaturas = await pool.query("select * from asignaturas where id =?",[id]);
+router.get(
+  "/editar_asignatura_oculta/:id",
+  isLoggedIn,
+  isAdmin,
+  async (req, res) => {
+    const { id } = req.params;
+    //const asignaturas = await pool.query("select * from asignaturas where id =?",[id]);
 
-  //Carga la asignatura con el modelo usando el id
-  const asignaturas = await model_asignatura.listar("specific", id);
-  const grado = await model_grado.listar("all");
-  const docente = await model_docente.listar("all");
+    //Carga la asignatura con el modelo usando el id
+    const asignaturas = await model_asignatura.listar("specific", id);
+    const grado = await model_grado.listar("all");
+    const docente = await model_docente.listar("all");
 
-  //Obtener llaves foraneas del estudiante que se va a editar para poder optener los datos de las tablas a las cuales referencia con cada llave foranea
-  let grado_id = asignaturas.grado;
-  let docente_id = asignaturas.docente;
+    //Obtener llaves foraneas del estudiante que se va a editar para poder optener los datos de las tablas a las cuales referencia con cada llave foranea
+    let grado_id = asignaturas.grado;
+    let docente_id = asignaturas.docente;
 
-  //Obtener la tabla correspondiente a cada llave foranea
-  const grado_actual = await model_grado.listar("specific", grado_id);
-  const docente_actual = await model_docente.listar("specific", docente_id);
+    //Obtener la tabla correspondiente a cada llave foranea
+    const grado_actual = await model_grado.listar("specific", grado_id);
+    const docente_actual = await model_docente.listar("specific", docente_id);
 
-  res.render("asignaturas/editar_asignatura_oculta", {
-    grado_actual: grado_actual,
-    docente_actual: docente_actual,
-    asignatura: asignaturas,
-    grado,
-    docente,
-  });
-});
-router.post("/actualizar_asignatura/:id", isLoggedIn, isAdmin, async (req, res) => {
-  const { id } = req.params;
+    res.render("asignaturas/editar_asignatura_oculta", {
+      grado_actual: grado_actual,
+      docente_actual: docente_actual,
+      asignatura: asignaturas,
+      grado,
+      docente,
+    });
+  }
+);
+router.post(
+  "/actualizar_asignatura/:id",
+  isLoggedIn,
+  isAdmin,
+  async (req, res) => {
+    const { id } = req.params;
 
-  let visible = 1;
+    let visible = 1;
 
-  console.log(id);
-  let { nombre, horas_semanales, horas_totales, docente, grado } = req.body;
-  //Guarda en un objeto las constantes anteriores
-  let newLink = {
-    nombre,
-    horas_semanales,
-    horas_totales,
-    docente,
-    grado,
-    visible,
-  };
+    console.log(id);
+    let { nombre, horas_semanales, horas_totales, docente, grado } = req.body;
+    //Guarda en un objeto las constantes anteriores
+    let newLink = {
+      nombre,
+      horas_semanales,
+      horas_totales,
+      docente,
+      grado,
+      visible,
+    };
 
-  //Imprime el objeto con los datos que recibio del formulario
-  console.log(newLink);
+    //Imprime el objeto con los datos que recibio del formulario
+    console.log(newLink);
 
-  //Actualizar asignatura usando el modelo
-  await model_asignatura.actualizar(id, newLink);
+    //Actualizar asignatura usando el modelo
+    await model_asignatura.actualizar(id, newLink);
 
-  //Mensaje de confirmacion
-  req.flash("success", "Asignatura actualizada correctamente");
+    //Mensaje de confirmacion
+    req.flash("success", "Asignatura actualizada correctamente");
 
-  //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
-  res.redirect("/asignaturas");
-});
+    //Redirecciona a la pantalla de los enlaces una vez terminada la consulta
+    res.redirect("/asignaturas");
+  }
+);
 
 //Ocultar asignatura
 router.post("/ocultarAsignatura/:id", isLoggedIn, isAdmin, async (req, res) => {

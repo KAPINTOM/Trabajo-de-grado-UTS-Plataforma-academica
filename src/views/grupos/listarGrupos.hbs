@@ -7,7 +7,7 @@
             </li>
             {{#if (ifAdmin)}}
             <li class="nav-item">
-                <a class="nav-link" href="/registrarGrupo">Registrar grupos</a>
+                <a class="nav-link" href="/registrarGrupo" target="_blank">Registrar grupos</a>
             </li>
             {{/if}}
         </ul>
@@ -55,13 +55,13 @@
                             <td>{{jornada}}</td>
                             <td>
                                 <abbr title="Editar grupo">
-                                    <a href="/editarGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                    <a href="/editarGrupo/{{id}}" target="_blank" class="btn btn-secondary btn-block"><i
                                             style='font-size:24px' class='fas'>&#xf044;</i></a>
                                 </abbr>
                             </td>
                             <td>
                                 <abbr title="Listar estudiantes">
-                                    <a href="/estudiantesGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                    <a href="/estudiantesGrupo/{{id}}" target="_blank" class="btn btn-secondary btn-block"><i
                                             style='font-size:24px' class='fas'>&#xf03a;</i></a>
                                 </abbr>
                             </td>
@@ -104,7 +104,7 @@
                             <td>{{jornada}}</td>
                             <td>
                                 <abbr title="Planilla de calificaciones del grupo">
-                                    <a href="/calificacionesPorGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                    <a href="/calificacionesPorGrupo/{{id}}" target="_blank" class="btn btn-secondary btn-block"><i
                                             style='font-size:24px' class='fas'>&#xf03a;</i></a>
                                 </abbr>
                             </td>

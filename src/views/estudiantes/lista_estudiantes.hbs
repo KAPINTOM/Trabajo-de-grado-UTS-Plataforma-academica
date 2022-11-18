@@ -6,16 +6,16 @@
                 <a class="nav-link " href="/">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/matricular_estudiante">Matricular estudiante</a>
+                <a class="nav-link" href="/matricular_estudiante" target="_blank">Matricular estudiante</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/grupos">Ver grupos</a>
+                <a class="nav-link" href="/grupos" target="_blank">Ver grupos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/matricular_estudiante">Registrar acudiente</a>
+                <a class="nav-link" href="/matricular_estudiante" target="_blank">Registrar acudiente</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/estudiantesRetirados">Estudiantes retirados</a>
+                <a class="nav-link" href="/estudiantesRetirados" target="_blank">Estudiantes retirados</a>
             </li>
         </ul>
     </div>
@@ -54,7 +54,7 @@
                 <td>{{fecha_nacimiento}}</td>
                 <td>{{acudiente}}
                     <abbr title="Ver acudiente">
-                        <a href="/acudiente/{{acudienteDoc}}"><i style='font-size:20px; color: gray;'
+                        <a href="/acudiente/{{acudienteDoc}}" target="_blank"><i style='font-size:20px; color: gray;'
                                 class='fas'><span>&#8594;</span>&#xf06e;</i></a>
                     </abbr>
                 </td>
@@ -66,13 +66,13 @@
                 <td>{{correo}}</td>
                 <td>
                     <abbr title="Editar estudiante">
-                        <a href="/editar_matricula/{{documento}}" class="btn btn-secondary btn-block"><i
+                        <a href="/editar_matricula/{{documento}}" target="_blank" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>
                 <td>
                     <abbr title="Editar estudiante">
-                        <a href="/calificaciones/{{documento}}" class="btn btn-secondary btn-block"><i
+                        <a href="/calificaciones/{{documento}}" target="_blank" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf328;</i></a>
                     </abbr>
                 </td>

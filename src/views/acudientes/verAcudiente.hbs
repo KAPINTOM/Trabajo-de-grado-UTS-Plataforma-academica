@@ -9,10 +9,10 @@
                 <a class="nav-link" href="/matricular_estudiante">Registrar acudiente</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/grupos">Ver grupos</a>
+                <a class="nav-link" href="/grupos" target="_blank">Ver grupos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/estudiantes">Ver estudiantes</a>
+                <a class="nav-link" href="/estudiantes" target="_blank">Ver estudiantes</a>
             </li>
         </ul>
     </div>
@@ -83,14 +83,14 @@
                 {{#if ../v}}
                 <td>
                     <abbr title="Editar estudiante">
-                        <a href="/editar_matricula/{{documento}}" class="btn btn-secondary btn-block"><i
+                        <a href="/editar_matricula/{{documento}}" target="_blank" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>
                 {{/if}}
-                  <td>
+                <td>
                     <abbr title="Calificaciones del estudiante">
-                        <a href="/calificaciones/{{documento}}" class="btn btn-secondary btn-block"><i
+                        <a href="/calificaciones/{{documento}}" target="_blank" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf328;</i></a>
                     </abbr>
                 </td>
