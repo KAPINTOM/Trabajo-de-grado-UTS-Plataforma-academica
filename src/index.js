@@ -33,12 +33,10 @@ app.engine(
     helpers: require("./lib/handlebars"),
   })
 );
-
 //Configurar el motor
 app.set("view engine", ".hbs");
 
 //Middlewares
-//Crea una session usando el modulo de express session para que pueda funcionar el modulo flash
 app.use(
   session({
     secret: "mysqlsession",

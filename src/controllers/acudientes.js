@@ -29,7 +29,7 @@ router.get(
 
     let user = req.user;
     let v = true;
-    if (user.tipo == "acudiente") {
+    if ((user.tipo == "acudiente") | (user.tipo == "docente")) {
       v = false;
     }
 

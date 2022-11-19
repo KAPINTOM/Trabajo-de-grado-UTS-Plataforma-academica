@@ -10,8 +10,6 @@ const model_grado = require("../models/grado_modelo");
 
 //Listar docentes
 router.get("/docentes", isLoggedIn, isAdmin, async (req, res) => {
-  //let estudiante = await pool.query("select * from estudiantes");
-  //Carga lista de estudiantes usando el modelo
   let docentes = await model_docente.listar("all");
 
   //Recorrer lista de objetos de estudiantes para realizar cambios en esta para su visualizacion
@@ -181,7 +179,6 @@ router.get(
     });
   }
 );
-
 router.post(
   "/actualizarDocente/:documento",
   isLoggedIn,

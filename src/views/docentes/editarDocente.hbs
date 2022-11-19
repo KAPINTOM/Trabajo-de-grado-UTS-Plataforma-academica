@@ -1,4 +1,5 @@
 <div class="container body_main body_form">
+    <br>
     <h2>
         Editar docente
     </h2>
@@ -12,11 +13,7 @@
                     <input type="text" value="{{docente.nombres}}" class="form-control" name="nombres"
                         placeholder="Nombres" autofocus>
                 </div>
-                <div class="form-group">
-                    <label for="documento">Documento:</label>
-                    <input type="text" value="{{docente.documento}}" class="form-control" name="documento"
-                        placeholder="Documento" autofocus>
-                </div>
+
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                     <input type="date" value="{{fnac}}" class="form-control" name="fecha_nacimiento"
@@ -27,11 +24,7 @@
                     <input type="email" value="{{docente.correo}}" class="form-control" name="correo"
                         placeholder="Correo" autofocus>
                 </div>
-                <div class="form-group">
-                    <label for="titulo">Titulo</label>
-                    <input type="text" value="{{docente.titulo}}" class="form-control" name="titulo"
-                        placeholder="Titulo del docente" autofocus>
-                </div>
+
             </div>
 
             {{!-- Columna 2 --}}
@@ -60,12 +53,25 @@
                         </optgroup>
                     </select>
                 </div>
+
+                {{!-- Administrador --}}
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="titulo">Titulo</label>
+            <input type="text" value="{{docente.titulo}}" class="form-control" name="titulo"
+                placeholder="Titulo del docente" autofocus>
+        </div>
+        <div class="row">
+            <div class="col">
                 <div class="form-group">
                     <label for="contraseña">Contraseña:</label>
                     <input type="password" value="{{docente.contrasena}}" class="form-control" name="contrasena"
                         placeholder="Contraseña" autofocus>
                 </div>
-                {{!-- Administrador --}}
+            </div>
+            <div class="col">
                 <div class="form-group">
                     <label for="tipo_documento">Rango:</label>
                     <select class="form-control" name="administrador" id="administrador">
