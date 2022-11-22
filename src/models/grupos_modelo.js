@@ -27,7 +27,7 @@ function listar(action, id) {
 }
 async function list_all() {
   console.log("carga todo");
-  const grupos = await pool.query("select * from grupos");
+  const grupos = await pool.query("select * from grupos order by nombre");
   return grupos;
 }
 async function list_specific(id) {

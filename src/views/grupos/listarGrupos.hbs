@@ -7,7 +7,7 @@
             </li>
             {{#if (ifAdmin)}}
             <li class="nav-item">
-                <a class="nav-link" href="/registrarGrupo" target="_blank">Registrar grupos</a>
+                <a class="nav-link" href="/registrarGrupo">Registrar grupos</a>
             </li>
             {{/if}}
         </ul>
@@ -25,18 +25,13 @@
             {{nivelSede nivel}}
             {{sedeActual nombre}}
             <div class="col col_grupos">
-
+                {{!-- Sede --}}
                 <h3>{{nombre}}</h3>
                 <hr>
                 {{!-- Sube 1 nivel --}}
                 {{#each ../grado}}
                 {{gradoActual grado}}
                 {{#if (ifNivelSede nivel)}}
-
-                {{!-- Sube 2 niveles --}}
-                {{#each ../../grupo}}
-                {{#if (ifGrupoSedeGrado sede grado)}}
-
                 <h4>{{grado}}</h4>
                 <table class="table table-bordered">
                     <thead>
@@ -48,6 +43,10 @@
                             <th>Estudiantes</th>
                         </tr>
                     </thead>
+
+                    {{!-- Sube 2 niveles --}}
+                    {{#each ../../grupo}}
+                    {{#if (ifGrupoSedeGrado sede grado)}}
                     <tbody>
                         <tr>
                             <td>{{nombre}}</td>
@@ -55,23 +54,21 @@
                             <td>{{jornada}}</td>
                             <td>
                                 <abbr title="Editar grupo">
-                                    <a href="/editarGrupo/{{id}}" target="_blank" class="btn btn-secondary btn-block"><i
+                                    <a href="/editarGrupo/{{id}}" class="btn btn-secondary btn-block"><i
                                             style='font-size:24px' class='fas'>&#xf044;</i></a>
                                 </abbr>
                             </td>
                             <td>
                                 <abbr title="Listar estudiantes">
-                                    <a href="/estudiantesGrupo/{{id}}" target="_blank"
-                                        class="btn btn-secondary btn-block"><i style='font-size:24px'
-                                            class='fas'>&#xf03a;</i></a>
+                                    <a href="/estudiantesGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                            style='font-size:24px' class='fas'>&#xf03a;</i></a>
                                 </abbr>
                             </td>
                         </tr>
                     </tbody>
+                    {{/if}}
+                    {{/each}}
                 </table>
-                {{/if}}
-                {{/each}}
-
                 {{/if}}
                 {{/each}}
             </div>
@@ -105,9 +102,8 @@
                             <td>{{jornada}}</td>
                             <td>
                                 <abbr title="Planilla de calificaciones del grupo">
-                                    <a href="/calificacionesPorGrupo/{{id}}" target="_blank"
-                                        class="btn btn-secondary btn-block"><i style='font-size:24px'
-                                            class='fas'>&#xf03a;</i></a>
+                                    <a href="/calificacionesPorGrupo/{{id}}" class="btn btn-secondary btn-block"><i
+                                            style='font-size:24px' class='fas'>&#xf03a;</i></a>
                                 </abbr>
                             </td>
                         </tr>

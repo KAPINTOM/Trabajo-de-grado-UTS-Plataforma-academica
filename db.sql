@@ -41,7 +41,7 @@ CREATE TABLE `acudiente` (
 
 LOCK TABLES `acudiente` WRITE;
 /*!40000 ALTER TABLE `acudiente` DISABLE KEYS */;
-INSERT INTO `acudiente` VALUES ('Acudiente 2','Acudiente 2',123,'Madre',456799,'correo@correo.com',1,'123'),('Acudiente 1','Acudiente 1',789,'Padre',454,'correo@correo.com',1,'123'),('Acudiente 3','Acudiente 3',4532,'Acudiente',123,'correo@correo.com',1,'0');
+INSERT INTO `acudiente` VALUES ('Acudiente 2','Acudiente 2',123,'Madre',456799,'correo@correo.com',1,'123'),('Acudiente 1','Acudiente 1',789,'Padre',454,'correo@correo.com',1,'123'),('Björn','A',1543,'Padre',12345,'bjorn@gmail.com',1,'123'),('Acudiente 3','Acudiente 3',4532,'Acudiente',123,'correo@correo.com',1,'123');
 /*!40000 ALTER TABLE `acudiente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `asignaturas` (
   KEY `grado_asignatura` (`grado`),
   CONSTRAINT `docente_asignatura` FOREIGN KEY (`docente`) REFERENCES `docentes` (`documento`),
   CONSTRAINT `grado_asignatura` FOREIGN KEY (`grado`) REFERENCES `grados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `asignaturas` (
 
 LOCK TABLES `asignaturas` WRITE;
 /*!40000 ALTER TABLE `asignaturas` DISABLE KEYS */;
-INSERT INTO `asignaturas` VALUES ('Matematicas',1,6,1111,12345,3,1),('Filosofia',2,3,30,12345,3,1),('Biologia',3,4,35,32535325,3,1),('Ciencias sociales magical',4,7,24,32535325,2,1),('Quimica',5,12,234,32535325,2,1),('Naturales',6,12,90,567567,2,1),('Lectura',7,3,10,12345,3,1);
+INSERT INTO `asignaturas` VALUES ('Matematicas',1,6,1111,12345,8,1),('Filosofia',2,3,30,12345,9,1),('Biologia',3,4,35,32535325,7,1),('Ciencias sociales',4,7,24,32535325,7,1),('Quimica 2',5,12,234,1234987,11,1),('Naturales',6,12,90,567567,6,1),('Lectura',7,3,10,12345,6,1),('Educacion fisica',8,3,10,567567,5,1),('Filosofia 2',9,5,15,1234,10,1),('Lectura basica',10,4,10,1234,0,1),('Creatividad',11,5,15,1234,0,1),('Lectura 1',12,3,10,1234,1,1),('Creatividad 2',13,6,10,1234,1,1),('Quimica 1',14,5,10,1234987,10,1),('Matematicas avanzadas',15,4,15,1234987,11,1),('Creatividad 3',16,5,15,12345,2,1),('Lecutra 2',17,6,13,12345,2,1),('Creatividad 4',18,3,10,567567,3,1),('Lectura 3',19,3,10,567567,3,1),('Aritmetica',20,5,10,32535325,4,1),('Lectura 4',21,5,10,12345,4,1),('Aritmetica 2',22,4,12,675,5,1),('Aritmetica 3',23,5,10,1234987,6,1),('Biologia 2',24,3,10,1234987,8,1),('Matemaaticas 2',25,4,30,1234,9,1),('Fisica',26,5,100,1234987,11,1);
 /*!40000 ALTER TABLE `asignaturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `calificaciones` (
   KEY `asignatura_calificacion` (`asignatura`),
   CONSTRAINT `asignatura_calificacion` FOREIGN KEY (`asignatura`) REFERENCES `asignaturas` (`id`),
   CONSTRAINT `estudiante_calificacion` FOREIGN KEY (`estudiante`) REFERENCES `estudiantes` (`documento`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5718 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +108,7 @@ CREATE TABLE `calificaciones` (
 
 LOCK TABLES `calificaciones` WRITE;
 /*!40000 ALTER TABLE `calificaciones` DISABLE KEYS */;
-INSERT INTO `calificaciones` VALUES (1,3436363,3,1,'2-5-4-3-2','2-4-4-5-',5,3.42),(2,3436363,1,2,'4-5-2--','4-3-5--',4,3.8),(3,3436363,3,2,'3-4-5--','1-4-3--',5,3.7),(4,3436363,3,3,'1----','1----',1,1),(5,3436363,3,4,'2----','2----',2,2),(8,3436363,1,1,'4-5-1--','3-4---',4,3.45),(9,3436363,1,3,'5-2-3--','5----',5,4),(10,3436363,4,1,'4-2-4--','2-2-1--',2,2.7),(20,568675,3,1,'2-3-4-5-3','4-5-4-3-3.5',5,3.740000009536743),(41,124554322,1,1,'5-5-5-5-5','5-5-5-5-3',5,4.88),(42,124554322,1,2,'3-4-7--','5-2-5--',4,3.7),(43,124554322,1,3,'----','----',0,0),(44,124554322,1,4,'----','----',0,0),(45,124554322,2,1,'7-7-3-4-','1-3-4--',5,4.45),(46,124554322,2,2,'1-2-3-4-5','8-9-1-2-2',0,3.12),(47,124554322,2,3,'----','----',0,0),(48,124554322,2,4,'----','----',0,0),(49,124554322,3,1,'----','----',0,0),(50,124554322,3,2,'----','----',0,0),(51,124554322,3,3,'----','----',0,0),(52,124554322,3,4,'----','----',0,0),(53,124554322,4,1,'----','----',0,0),(54,124554322,4,2,'----','----',0,0),(55,124554322,4,3,'----','----',0,0),(56,124554322,4,4,'----','----',0,0),(57,124554322,5,1,'----','----',0,0),(58,124554322,5,2,'----','----',0,0),(59,124554322,5,3,'----','----',0,0),(60,124554322,5,4,'----','----',0,0),(61,980,1,1,'----','----',0,0),(62,980,1,2,'----','----',0,0),(63,980,1,3,'----','----',0,0),(64,980,1,4,'----','----',0,0),(65,980,2,1,'1-2-3-4-5','1-2-3-4-5',5,3.2),(66,980,2,2,'----','----',0,0),(67,980,2,3,'----','----',0,0),(68,980,2,4,'----','----',0,0),(69,980,3,1,'----','----',0,0),(70,980,3,2,'----','----',0,0),(71,980,3,3,'----','----',0,0),(72,980,3,4,'----','----',0,0),(73,980,7,1,'4-5-3-1.5-2','4-3-4-5-6',3,0),(74,980,7,2,'----','----',0,0),(75,980,7,3,'----','----',0,0),(76,980,7,4,'----','----',0,0);
+INSERT INTO `calificaciones` VALUES (5658,897,9,1,'----','----',0,0),(5659,897,9,2,'----','----',0,0),(5660,897,9,3,'----','----',0,0),(5661,897,9,4,'----','----',0,0),(5662,897,14,1,'----','----',0,0),(5663,897,14,2,'----','----',0,0),(5664,897,14,3,'----','----',0,0),(5665,897,14,4,'----','----',0,0),(5666,1242,6,1,'----','----',0,0),(5667,1242,6,2,'----','----',0,0),(5668,1242,6,3,'----','----',0,0),(5669,1242,6,4,'----','----',0,0),(5670,1242,7,1,'3-4-5-2.4-5','4-4.5-2-3.7-5',5,0),(5671,1242,7,2,'1-2-3-4-3','5-4-2.6-2-1',4,0),(5672,1242,7,3,'5-4-3-4-5','3-5-3.7-4-2',5,0),(5673,1242,7,4,'3-4-3-5-5','4-5-5-5-5',5,0),(5674,1242,23,1,'----','----',0,0),(5675,1242,23,2,'----','----',0,0),(5676,1242,23,3,'----','----',0,0),(5677,1242,23,4,'----','----',0,0),(5678,876,3,1,'----','----',0,0),(5679,876,3,2,'----','----',0,0),(5680,876,3,3,'----','----',0,0),(5681,876,3,4,'----','----',0,0),(5682,876,4,1,'----','----',0,0),(5683,876,4,2,'----','----',0,0),(5684,876,4,3,'----','----',0,0),(5685,876,4,4,'----','----',0,0),(5686,321,1,1,'----','----',0,0),(5687,321,1,2,'----','----',0,0),(5688,321,1,3,'----','----',0,0),(5689,321,1,4,'----','----',0,0),(5690,321,24,1,'----','----',0,0),(5691,321,24,2,'----','----',0,0),(5692,321,24,3,'----','----',0,0),(5693,321,24,4,'----','----',0,0),(5702,4312,5,1,'4-3-3-4-5','2-4-5-3-4',10,4.36),(5703,4312,5,2,'1-3-2-4-5','2-4-5-4-3',5,3.5),(5704,4312,5,3,'2-3-2-2-4','3-5-5-3-4',5,3.32),(5705,4312,5,4,'1-2-3-4-5','5-4-3-2-1',4,3.1),(5706,4312,15,1,'----','----',0,0),(5707,4312,15,2,'----','----',0,0),(5708,4312,15,3,'----','----',0,0),(5709,4312,15,4,'----','----',0,0),(5710,3579,5,1,'----','----',0,0),(5711,3579,5,2,'----','----',0,0),(5712,3579,5,3,'----','----',0,0),(5713,3579,5,4,'----','----',0,0),(5714,3579,15,1,'----','----',0,0),(5715,3579,15,2,'----','----',0,0),(5716,3579,15,3,'----','----',0,0),(5717,3579,15,4,'----','----',0,0);
 /*!40000 ALTER TABLE `calificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `docentes` (
 
 LOCK TABLES `docentes` WRITE;
 /*!40000 ALTER TABLE `docentes` DISABLE KEYS */;
-INSERT INTO `docentes` VALUES ('Docente 1','Docente 1',1234,1,'2022-10-03',123,'correo@correo.com','titulo','1234',1,1),('Docente 3','Docente 3',12345,3,'2022-09-29',2342,'correo@correo.com','Licenciado','12345',0,1),('Docente 4','Docente 4',567567,1,'2022-10-12',567567567,'correo@correo.com','Ingenieria','234',0,1),('Docente 2','Docente 2',32535325,2,'2015-11-23',8797989,'correo@correo.com','Titulo 2','567',0,1);
+INSERT INTO `docentes` VALUES ('John','L',675,1,'2022-10-31',123,'correo@correo.com','Licenciado','675',0,1),('Docente 1','Docente 1',1234,1,'2022-10-03',123,'correo@correo.com','titulo','1234',1,1),('Docente 3','Docente 3',12345,1,'2022-09-29',2342,'correo@correo.com','Licenciado','12345',0,1),('Martin','M',45642,1,'1985-01-15',123,'correo@correo.com','Licenciado','123',1,1),('Docente 4','Docente 4',567567,1,'2022-10-12',567567567,'correo@correo.com','Ingenieria','567567',0,1),('Docente 5','Docente 5',1234987,1,'2022-11-01',123,'correo@correo.com','Licenciado','1234',0,1),('Docente 2','Docente 2',32535325,1,'2015-11-23',8797989,'correo@correo.com','Licenciado','567',0,1);
 /*!40000 ALTER TABLE `docentes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ CREATE TABLE `estudiantes` (
 
 LOCK TABLES `estudiantes` WRITE;
 /*!40000 ALTER TABLE `estudiantes` DISABLE KEYS */;
-INSERT INTO `estudiantes` VALUES (1,'Louis','Louis',568,'Registro civil','2022-11-16',123,0,4,1,123,'correo@correo.com',34,'9aknWdwYuPpWPv5'),(1,'Mr Mistoffelees','the original conjuring cat',777,'Cedula de ciudadania','2022-11-10',789,11,4,1,777,'mrmistoffelees@magic.com',34,'777'),(1,'David','Davis',980,'Tarjeta de identidad','2022-11-03',789,3,4,3,123,'correo@correo.com',34,'123'),(1,'Roy Master','Roy',8789,'Tarjeta de identidad','2022-10-12',123,9,4,1,34,'correo3@correo.com',34,'9aknWdwYuPpWPv5'),(1,'Estudiante 2','Estudiante 2',568675,'Tarjeta de identidad','1987-05-19',789,1,4,2,1223445,'correo2@correo.com',34,'767878'),(0,'Estudiante 1','Estudiante 1',3436363,'Cedula de ciudadania','2000-12-13',123,2,4,1,1223445,'correo@correo.com',134757,'1234'),(1,'Estudiante 4','Estudiante 4',7806556,'Tarjeta de identidad','2022-10-12',789,1,4,1,2213,'correotest@correo.com',134757,'456'),(1,'Estudiante 3','Estudiante 3',23424324,'Registro civil','2022-10-26',789,2,4,2,6588658,'correo33@correo.com',34,''),(1,'Skimbleshanks','the railway cat',124554322,'Cedula de ciudadania','2022-09-29',789,3,4,3,32,'correo3@correo.com',34,'124');
+INSERT INTO `estudiantes` VALUES (1,'Marshall','L',321,'Cedula de ciudadania','2022-11-09',4532,8,11,1,434,'correo@correo.com',34,'123'),(1,'Paula','Paul',876,'Tarjeta de identidad','2022-11-10',4532,7,8,1,445,'correo@correo.com',34,'123'),(1,'David','Davis',897,'Tarjeta de identidad','2022-11-09',789,10,3,1,123,'correo@correo.com',34,'123'),(1,'John','John',1242,'Tarjeta de identidad','2022-11-04',123,6,2,1,22,'correo@correo.com',34,'123'),(1,'Andres','Lopez',3579,'Cedula de ciudadania','2000-06-21',4532,11,12,1,123,'correo@correo.com',34,'123'),(1,'Chris','A',4312,'Tarjeta de identidad','2022-11-10',1543,11,5,1,98,'correo@correo.com',34,'1234');
 /*!40000 ALTER TABLE `estudiantes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +242,7 @@ CREATE TABLE `grupos` (
   CONSTRAINT `grado_grupo` FOREIGN KEY (`grado`) REFERENCES `grados` (`id`),
   CONSTRAINT `jornada_grupo` FOREIGN KEY (`jornada`) REFERENCES `jornada` (`id`),
   CONSTRAINT `sede_grupo` FOREIGN KEY (`sede`) REFERENCES `sedes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +251,7 @@ CREATE TABLE `grupos` (
 
 LOCK TABLES `grupos` WRITE;
 /*!40000 ALTER TABLE `grupos` DISABLE KEYS */;
-INSERT INTO `grupos` VALUES ('Grupo 1',1,1,2,1234,134757,1),('Grupo 2',2,6,1,1234,134757,1),('Decimo uno',3,10,1,1234,34,1),('Tercero uno',4,3,3,32535325,34,1),('Once uno',5,11,1,1234,34,1),('Quinto uno',6,5,3,1234,34,1);
+INSERT INTO `grupos` VALUES ('Primero divino niño',1,1,2,1234,34,1),('Sexto uno',2,6,1,1234,134757,1),('Decimo uno',3,10,1,1234,34,1),('Tercero diamante',4,3,3,32535325,34,1),('Once uno',5,11,1,1234,34,1),('Quinto diamante',6,5,3,1234,34,1),('Preescolar divino niño',7,0,2,1234,34,1),('Septimo uno',8,7,1,1234,34,1),('Septimo 2',9,7,1,1234,34,1),('Decimo 2',10,10,1,1234,34,1),('Octavo uno',11,8,1,1234,34,1),('Once dos',12,11,1,1234987,34,1),('Sexto dos',13,6,1,1234,34,1),('Segundo divino niño',14,2,2,1234,34,1),('Tercero divino niño',15,3,2,1234,34,1),('Cuarto divino niño',16,4,2,1234,34,1),('Quinto divino niño',17,5,2,1234,34,1),('Preescolar diamante',18,0,3,1234,34,1),('Primero diamante',19,1,3,1234,34,1),('Segundo diamante',20,2,3,1234,34,1),('Cuarto diamante',21,4,3,1234,34,1),('Noveno uno',22,9,1,1234,34,1),('Noveno dos',23,9,1,1234,34,1),('Sexto tres',24,6,1,1234,34,1);
 /*!40000 ALTER TABLE `grupos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +324,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('6omZsSFH4OZGLLPPYjmPYkq3PuH6a-tD',1668719500,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),('8MoO7vZRdwkUnwU-s5GwjoLeHZzAUmL0',1668725527,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":\"123\"},\"flash\":{}}'),('HPuQSxPVW1euhjMnt849s5lgSCG4yW1u',1668720798,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),('MUTaM-oIZqMJtB0Oc1WsEYOF-6NjC4zX',1668719500,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),('S4o7erZ9pm6yGZfQ6jN5j5LmFMz4GZPX',1668719500,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),('hWZVgrgkGKtHgqvUVkvEZtGf4kdlYM9U',1668666727,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":\"123\"},\"flash\":{}}');
+INSERT INTO `sessions` VALUES ('2AdL1lwXJkjmT_6NhKaanV3CB7p9crg3',1669172703,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),('Krlf4uTy8NuapiFh2VkrUU40G-ALLF3Y',1669179128,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),('Q-mQb4bwmle-T0cedOeXgjp9JROujUmt',1669172302,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":\"1234\"},\"flash\":{}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -337,4 +337,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-16 18:00:31
+-- Dump completed on 2022-11-21 23:55:06

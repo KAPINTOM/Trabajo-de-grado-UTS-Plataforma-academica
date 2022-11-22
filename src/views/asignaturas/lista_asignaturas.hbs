@@ -8,10 +8,10 @@
 
             {{#if (ifAdmin)}}
             <li class="nav-item">
-                <a class="nav-link" href="/registrar_asignatura" target="_blank">Registrar asignatura</a>
+                <a class="nav-link" href="/registrar_asignatura">Registrar asignatura</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/asignaturasOcultas" target="_blank">lista de asignaturas ocultas</a>
+                <a class="nav-link" href="/asignaturasOcultas">lista de asignaturas ocultas</a>
             </li>
             {{/if}}
         </ul>
@@ -52,7 +52,7 @@
                 {{#if (ifAdmin)}}
                 <td>
                     <abbr title="Editar asignatura: {{nombre}}">
-                        <a href="/editar_asignatura/{{id}}" target="_blank" class="btn btn-secondary btn-block"><i
+                        <a href="/editar_asignatura/{{id}}" class="btn btn-secondary btn-block"><i
                                 style='font-size:24px' class='fas'>&#xf044;</i></a>
                     </abbr>
                 </td>
