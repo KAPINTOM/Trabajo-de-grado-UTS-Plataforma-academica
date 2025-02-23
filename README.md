@@ -116,14 +116,10 @@ Si deseas contribuir a este proyecto, sigue estos pasos:
 4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
 5. Abre un Pull Request.
 
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-
 ## Contacto
 
 Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
 
-- **Nombre**: [Kenneth Andrey Pinto Medina]
-- **Email**: [kapintomedina@gmail.com]
+- **Nombre**: Kenneth Andrey Pinto Medina
+- **Email**: kapintomedina@gmail.com
 - **GitHub**: [Kenneth Andrey Pinto Medina (KAPINTO)](https://github.com/KAPINTOM)
