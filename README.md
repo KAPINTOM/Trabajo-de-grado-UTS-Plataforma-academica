@@ -17,6 +17,7 @@ Este proyecto es una plataforma web académica desarrollada con Node.js, Express
 
 El proyecto está organizado de la siguiente manera:
 
+```plaintext
 src/
 │
 ├── controllers/          # Controladores para manejar las rutas
@@ -44,6 +45,7 @@ src/
 ├── database.js           # Configuración de la conexión a la base de datos
 ├── index.js              # Punto de entrada de la aplicación
 └── keys.js               # Configuración de la base de datos (credenciales)
+```
 
 ## Requisitos previos
 
