@@ -1,165 +1,214 @@
-# MPV Player Configuration Profiles
+# Plataforma Académica - Aplicación Web Node.js
 
-A comprehensive collection of MPV player configurations optimized for different hardware capabilities and use cases.
+## Descripción General del Proyecto
+Una plataforma integral de gestión académica construida con Node.js, Express y MySQL. El sistema implementa un flujo de trabajo académico completo para gestionar estudiantes, profesores, calificaciones, asignaturas y períodos académicos.
 
-## Table of Contents
-1. [Quick Installation](#quick-installation)
-2. [Profile Selection Guide](#profile-selection-guide)
-3. [Configuration Profiles](#configuration-profiles)
-   - [Low Quality Software](#low-quality-software-profile)
-   - [Low Quality Hardware](#low-quality-hardware-profile)
-   - [High Quality](#high-quality-profile)
-   - [High Quality with Interpolation](#high-quality--interpolation-profile)
-   - [Ultra High Quality](#ultra-high-quality-profile)
-4. [Advanced Features](#advanced-features)
-5. [Troubleshooting](#troubleshooting)
+## Stack Tecnológico
 
-## Quick Installation
-```batch
-# Windows
-mkdir %APPDATA%\mpv
-copy mpv.conf %APPDATA%\mpv\
-copy input.conf %APPDATA%\mpv\
+### Backend
+- **Node.js** - Entorno de ejecución
+- **Express.js** - Framework web
+- **MySQL** - Base de datos relacional
+- **Passport.js** - Middleware de autenticación
+- **Bcrypt.js** - Encriptación de contraseñas
+- **Express-session** - Gestión de sesiones
+
+### Frontend
+- **Handlebars** - Motor de plantillas
+- **Bootstrap 4** - Framework CSS
+- **CSS Personalizado** - Ubicado en `src/public/css/styles.css`
+
+## Arquitectura
+
+### Estructura de Directorios
+```
+src/
+├── controllers/       # Controladores y lógica de negocio
+├── models/           # Modelos y consultas a base de datos
+├── lib/             # Funciones auxiliares y middleware
+├── public/          # Archivos estáticos
+├── views/           # Plantillas Handlebars
+└── database.js      # Configuración de conexión a base de datos
 ```
 
-## Profile Selection Guide
-Choose your profile based on your hardware:
-- Ancient/Low-end PC → Low Quality SW
-- Basic GPU → Low Quality HW
-- Modern GPU → High Quality
-- Gaming/High-end PC → High Quality + Interpolation
-- Custom Experience → Ultra High Quality
+### Esquema de Base de Datos
 
-## Configuration Profiles
+#### Tablas Principales
+- `estudiantes` - Registros de estudiantes
+- `docentes` - Registros de profesores
+- `acudiente` - Registros de padres/acudientes
+- `asignaturas` - Registros de materias/cursos
+- `calificaciones` - Calificaciones y evaluaciones
+- `grupos` - Grupos de clase
+- `grados` - Niveles académicos
+- `sedes` - Sedes escolares
+- `jornada` - Horarios académicos
 
-### Low Quality Software Profile
-**Purpose:** Maximum compatibility and performance on very old or limited hardware
-**Location:** `/low quality sw/mpv.conf`
+### Sistema de Autenticación
 
-```properties
-hwdec=no          # Forces CPU decoding
-profile=fast      # Maximum performance focus
-save-position-on-quit
-fs                # Start in fullscreen
+Implementa un sistema de autenticación multi-rol usando Passport.js con los siguientes roles:
+- Administrador
+- Profesor
+- Estudiante
+- Acudiente
+
+Middleware de autenticación (`src/lib/auth.js`) proporciona control de acceso basado en roles mediante funciones:
+- `isLoggedIn`
+- `isAdmin`
+- `isDocente`
+- `isEstudiante`
+- `isAcudiente`
+
+### Controladores
+
+#### Controladores Principales
+- `authentication.js` - Gestión de login y sesiones
+- `estudiantes.js` - Gestión de estudiantes
+- `docentes.js` - Gestión de profesores
+- `calificaciones.js` - Gestión de calificaciones
+- `asignaturas.js` - Gestión de materias
+- `grupos.js` - Gestión de grupos
+- `acudientes.js` - Gestión de acudientes
+
+### Modelos
+
+Cada modelo implementa operaciones CRUD y lógica de negocio específica:
+
+#### Métodos Comunes de Modelos
+- `listar(action, id)` - Listar registros con filtrado
+- `insertar(data)` - Crear nuevos registros
+- `actualizar(id, data)` - Actualizar registros existentes
+- `eliminar(id)` - Eliminar registros
+- `ocultar(id)` - Funcionalidad de eliminación suave
+
+### Sistema de Calificaciones
+
+Implementa un sistema integral de calificaciones con:
+- Múltiples períodos de evaluación
+- Tres componentes de evaluación:
+  - Cognitivo (60%)
+  - Procedimental (30%)
+  - Actitudinal (10%)
+- Cálculo automático de notas
+- Seguimiento histórico de calificaciones
+
+### Sistema de Vistas
+
+Utiliza plantillas Handlebars con layouts:
+- `main.hbs` - Plantilla principal
+- Helpers personalizados para formateo de fechas y lógica UI
+- Vistas separadas para cada rol de usuario
+- Diseño responsivo usando Bootstrap 4
+
+## Configuración
+
+### Configuración de Base de Datos
+Ubicada en `src/keys.js`:
+```javascript
+module.exports = {
+  database: {
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "plataforma_web"
+  }
+}
 ```
 
-**Best For:**
-- Very old computers
-- Systems without GPU
-- Troubleshooting compatibility issues
-- Minimal resource usage
+### Configuración del Servidor
+- Puerto: 3333 (configurable)
+- Gestión de sesiones usando MySQL store
+- Mensajes flash para feedback de usuario
+- Registro Morgan en modo desarrollo
 
-### Low Quality Hardware Profile
-**Purpose:** Basic hardware acceleration for older GPUs
-**Location:** `/low quality hw/mpv.conf`
+## Características de Seguridad
 
-```properties
-vo=gpu            # GPU-based video output
-hwdec=auto-safe   # Hardware decoding with fallback
-profile=fast      # Performance-oriented settings
-save-position-on-quit
-fs
+1. Encriptación de Contraseñas
+- Implementa bcrypt para hash de contraseñas
+- Rondas de salt: 10
+
+2. Seguridad de Sesiones
+- Almacenamiento seguro de sesiones en MySQL
+- Middleware de validación de sesiones
+- Protección CSRF
+
+3. Control de Acceso
+- Control de acceso basado en roles
+- Middleware de protección de rutas
+- Verificación de sesiones
+
+## Herramientas de Desarrollo
+
+### Dependencias Requeridas
+```json
+{
+  "bcryptjs": "^2.4.3",
+  "connect-flash": "^0.1.1",
+  "express": "^4.18.1",
+  "express-handlebars": "^6.0.6",
+  "express-mysql-session": "^2.1.8",
+  "express-session": "^1.17.3",
+  "mysql": "^2.18.1",
+  "passport": "^0.6.0"
+}
 ```
 
-**Optional Vulkan Enhancement:**
-```properties
-gpu-api=vulkan    # Enable for compatible GPUs
-hwdec=vulkan      # Vulkan-based decoding
+### Dependencias de Desarrollo
+- `nodemon` - Auto-reinicio durante desarrollo
+
+## Ejecutar el Proyecto
+
+1. Instalar dependencias:
+```bash
+npm install
 ```
 
-### High Quality Profile
-**Purpose:** Quality-focused playback for modern systems
-**Location:** `/high quality without interpolation/mpv.conf`
+2. Configurar base de datos:
+- Importar esquema desde `db.sql`
+- Configurar conexión en `src/keys.js`
 
-```properties
-vo=gpu-next       # Modern GPU renderer
-hwdec=auto-safe   # Hardware decoding
-profile=gpu-hq    # High quality preset
-scale=ewa_lanczos4sharpest    # Superior scaling
-cscale=ewa_lanczos4sharpest   # Chroma scaling
-dscale=ewa_lanczos4sharpest   # Downscaling
-correct-downscaling=yes       # Prevent detail loss
-deband=yes        # Remove color banding
-deinterlace=auto  # Handle interlaced content
+3. Iniciar servidor de desarrollo:
+```bash
+npm run dev
 ```
 
-### High Quality + Interpolation Profile
-**Purpose:** Smooth motion playback for high-end systems
-**Location:** `/high quality with interpolation/mpv.conf`
+## Pruebas
 
-```properties
-vo=gpu-next       # Modern renderer
-hwdec=auto-safe   # Hardware decoding
-profile=gpu-hq    # Quality preset
-scale=ewa_lanczos4sharpest    # Quality scaling
-cscale=ewa_lanczos4sharpest   # Color scaling
-interpolation=yes             # Frame interpolation
-tscale=oversample            # Temporal scaling
-video-sync=display-resample  # Smooth playback
-deband=yes                   # Remove banding
-```
+Usuarios de prueba proporcionados en `Usuarios de testing.txt`:
+- Cuentas de administrador
+- Cuentas de profesor
+- Cuentas de estudiante
+- Cuentas de acudiente
 
-### Ultra High Quality Profile
-**Purpose:** Maximum quality with custom enhancements
-**Location:** `/actual personal configuration/mpv.conf`
+## Características del Proyecto
 
-```properties
-vo=gpu-next       # Modern renderer
-gpu-api=vulkan    # Vulkan API
-hwdec=auto-safe   # Hardware decode
-profile=gpu-hq    # Quality preset
-scale=ewa_lanczos4sharpest    # All scaling set to highest
-cscale=ewa_lanczos4sharpest
-dscale=ewa_lanczos4sharpest
-correct-downscaling=yes
-deband=yes        # Remove banding
-deinterlace=no    # No deinterlacing
-saturation=50     # Enhanced colors
-brightness=10     # Increased brightness
-```
+### Gestión Académica
+- Matriculación de estudiantes
+- Registro y cálculo de calificaciones
+- Asignación de materias
+- Asignación de profesores
+- Gestión de grupos de clase
+- Múltiples períodos académicos
 
-## Advanced Features
+### Reportes
+- Informes de calificaciones
+- Análisis de rendimiento de clase
+- Seguimiento de progreso académico
+- Registros de asistencia
 
-### Custom Controls
-**Location:** `/input.conf`
-```properties
-# Sharpness control (Only for vo=gpu)
-Ctrl+2 add sharpen +0.100    # Increase sharpness
-Ctrl+1 add sharpen -0.100    # Decrease sharpness
-```
+### Gestión de Usuarios
+- Múltiples roles de usuario
+- Gestión de perfiles
+- Recuperación de contraseñas
+- Gestión de sesiones
 
-### Performance Impact Guide
+## Manejo de Errores
 
-| Feature | GPU Load | CPU Load | Quality Impact |
-|---------|----------|----------|----------------|
-| Basic Scaling | 1-2% | Minimal | Low |
-| Lanczos Scaling | 5-10% | Low | High |
-| Interpolation | 15-30% | Medium | Very High |
-| HDR Processing | 5-15% | Low | High |
+- Manejador global de errores
+- Mensajes flash para feedback de usuario
+- Gestión de errores de base de datos
+- Manejo de errores de sesión
 
-## Troubleshooting
+## Aviso Importante
 
-### Common Issues & Solutions
-1. **High CPU Usage**
-   - Enable hardware decoding
-   - Use lighter scaling
-   - Disable interpolation
-
-2. **Video Stuttering**
-   - Try different `vo` settings
-   - Disable interpolation
-   - Lower scaling quality
-
-3. **Quality Issues**
-   - Check hardware decode support
-   - Update GPU drivers
-   - Adjust scaling options
-
-### Performance Monitoring
-Press `Shift+I` while playing to show:
-- Frame timing
-- Hardware decode status
-- GPU/CPU load
-- Dropped frames
-
-Remember: Start with the profile matching your hardware and adjust settings based on performance and quality needs.
+Este sistema no se encuentra en desarrollo y no se aceptaran modificaciones externas. El código y la estructura deben mantenerse según lo establecido en esta documentación.
